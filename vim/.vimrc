@@ -205,8 +205,8 @@ inoremap jk <ESC>
 " "Fake Sudo
 " " cmap w!! w !sudo tee % >/dev/null
 " Allow j and k to be more normal.
-nmap j gj
-nmap k gk
+"nmap j gj
+"nmap k gk
 " " Use Q for formatting the current paragraph (or selection)
 " vmap Q gq
 " nmap Q gqap
@@ -271,6 +271,7 @@ omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
+nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
 
 " Ctrl P Stuff
 "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
@@ -288,6 +289,14 @@ let g:ctrlp_custom_ignore = {
 \ 'link': 'some_bad_symbolic_links',
 \ }
 
+
+" Easy Motion
+" keep cursor colum JK motion
+let g:EasyMotion_startofline = 0 
+map <Leader>J <Plug>(easymotion-sol-j)
+map <Leader>K <Plug>(easymotion-sol-k)
+
+" Vim Move
 
 " " GUI STUFF
 "     if has("gui_running")
@@ -377,8 +386,8 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " COmmenting
-vmap mm <plug>NERDCommenterToggle
-nmap mm <plug>NERDCommenterToggle
+vmap <C-m> <plug>NERDCommenterToggle
+nmap <C-m> <plug>NERDCommenterToggle
 
 " Vim Airline Stuff
 " Use the airline thing anyway.
@@ -510,6 +519,11 @@ let g:NERDTreeIgnore = ['^node_modules$']
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+"Git Gutter
+highlight GitGutterAdd    guifg=#009900 ctermfg=Green
+highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
+highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
 
 " This allows the sensible settings to be overriden.
  runtime! plugin/sensible.vim
