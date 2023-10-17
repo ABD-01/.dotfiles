@@ -1,0 +1,52 @@
+[
+    // {
+    //     "key": "space n",
+    //     "command": "workbench.action.toggleSidebarVisibility",
+    //     "when": "listFocus && !inputFocus"
+    // },
+    {
+        "key": "ctrl+e",
+        "command": "workbench.files.action.focusFilesExplorer",
+        "when": "sideBarVisible && !filesExplorerFocus && !suggestWidgetVisible && vim.mode != 'Insert'"
+    },
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "x",
+        "command": "filesExplorer.cut",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "p",
+        "command": "filesExplorer.paste",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "c",
+        "command": "filesExplorer.copy",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "moveFileToTrash",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    // https://stackoverflow.com/a/73598040
+    {
+        "key": "ctrl+o",
+        "command": "workbench.action.navigateBack",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "workbench.action.navigateForward"
+    },
+]

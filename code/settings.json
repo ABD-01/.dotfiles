@@ -1,0 +1,115 @@
+{
+    "C_Cpp.default.compilerPath": "cl.exe",
+    "tabnine.experimentalAutoImports": true,
+    "workbench.colorTheme": "Dark Material Dracula",
+
+    "vim.leader": " ",
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": false,
+    "vim.smartRelativeLine": true,
+
+    "vim.normalModeKeyBindingsNonRecursive": [
+      {
+        "before": ["<leader>", "n"],
+        "commands": ["workbench.action.toggleSidebarVisibility"]
+      },
+      {
+        "before": ["<leader>", "e"],
+        "command": ["workbench.files.action.focusFilesExplorer"],
+      },
+      {
+        "before": ["<leader>", "k"],
+        "commands": [
+            {
+                "command": "workbench.action.navigateUp"
+            }
+          ]
+      },
+      {
+          "before": ["<leader>", "h"],
+          "commands": [
+              {
+                  "command": "workbench.action.navigateLeft"
+              }
+          ]
+      },
+      {
+          "before": ["<leader>", "l"],
+          "commands": [
+              {
+                  "command": "workbench.action.navigateRight"
+              }
+          ]
+      },
+      {
+          "before": ["<leader>", "j"],
+          "commands": [
+              {
+                  "command": "workbench.action.navigateDown"
+              }
+          ]
+      },
+      {
+        "before": ["<leader>", "x"],
+        "commands": [
+            {
+                "command": "workbench.action.closeActiveEditor"
+            }
+        ]
+      }
+    ],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        },
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
+        },
+    ],
+
+    "vim.enableNeovim" : true,
+
+    "keyboard.dispatch": "keyCode",
+    "security.workspace.trust.untrustedFiles": "open",
+    "CodeGPT.model": "gpt4all-j-v1.3-groovy",
+    "memory-view.trackDebuggers": [],
+    "workbench.colorCustomizations": {},
+    "terminal.integrated.minimumContrastRatio": 1,
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+    "editor.lineNumbers": "on",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "black.lineLength": 100,
+    "CodeGPT.apiKey": "GPT4All",
+    "codeium.enableSearch": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "python.defaultInterpreterPath": "C:\\Users\\Muhammed\\.virtualenvs\\projects-DRBfDYF3\\Scripts\\python.exe",
+    "codeium.enableConfig": {
+        "*": true,
+        "markdown": true
+    },
+    "mcuxpresso.sdks": []
+}
