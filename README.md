@@ -26,3 +26,7 @@ mklink C:\Users\<Username>\AppData\Roaming\Code\User\settings.json C:\Users\<Use
 ```
 mklink C:\Users\<Username>\AppData\Roaming\Code\User\keybindings.json C:\Users\<Username>\.dotfiles\code\keybindings.json
 ```
+5. NVim
+```
+mklink C:\Users\<Username>\AppData\Local\nvim C:\Users\<Username>\.dotfiles\nvim
+```
