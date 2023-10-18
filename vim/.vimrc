@@ -178,7 +178,7 @@ set showcmd        " display incomplete commands
 set laststatus=2    " Always display the statusline in all windows
 set showtabline=2   " Always display the tabline, even if there is only one tab
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-" set t_Co=256                 " force vim to use 256 colors
+set t_Co=256                 " force vim to use 256 colors
 set number                  "Show line numbers              
 set hidden                  "Buffers can exist in the background without being in a window.
 "set nobackup       "no backup files
@@ -218,7 +218,7 @@ map <leader>n :new<cr>
 map <leader>i I
 map <leader><c-p> :CtrlPBookmarkDir<CR>
 map <c-b> :CtrlPBuffer<CR>
-map <c-h> :CtrlPMRUFiles<CR>
+map <c-S-h> :CtrlPMRUFiles<CR>
 
 " toggle relative numbering
 nnoremap <leader>rn :set rnu!<CR>
@@ -397,7 +397,7 @@ let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
  let g:tmuxline_theme = 'powerline'
  set laststatus=2 		"Show statusbar always.
  let g:airline_powerline_fonts = 1
- let g:airline_theme='night_owl'
+ let g:airline_theme='minimalist'
  let g:airline#extensions#tabline#buffer_nr_show = 1
       nmap <leader>1 <Plug>AirlineSelectTab1
       nmap <leader>2 <Plug>AirlineSelectTab2
