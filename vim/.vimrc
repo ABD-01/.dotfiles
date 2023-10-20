@@ -216,9 +216,6 @@ let mapleader=" "
 " let maplocalleader = "\\"
 map <leader>n :new<cr>
 map <leader>i I
-map <leader><c-p> :CtrlPBookmarkDir<CR>
-map <c-b> :CtrlPBuffer<CR>
-map <c-h> :CtrlPMRUFiles<CR>
 
 " toggle relative numbering
 nnoremap <leader>rn :set rnu!<CR>
@@ -232,6 +229,11 @@ nmap <Leader>w :w<CR>
 nmap <Leader>q :q<CR>
 nmap <Leader>wq :wq<CR>
 nmap <Leader>Q :q!<CR>
+
+
+"buffer navigations
+nnoremap <S-L> :bn<CR>
+nnoremap <S-H> :bp<CR>
 
 " ================ Indentation ======================
 
@@ -275,8 +277,12 @@ nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
 
 " Ctrl P Stuff
 "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<C-f>'
 let g:ctrlp_cmd = 'CtrlP'
+map <C-f> :CtrlP<CR>
+map <leader><c-p> :CtrlPBookmarkDir<CR>
+map <C-b> :CtrlPBuffer<CR>
+map <C-p> :CtrlPMRUFiles<CR>
 "let g:ctrlp_root_markers = ['.ctrlp','.latexmain','.agignore']
 "let g:ctrlp_working_path_mode = 0 
 let g:ctrlp_use_caching = 1
@@ -394,20 +400,20 @@ nmap <C-m> <plug>NERDCommenterToggle
 let g:miniBufExplAutoStart = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
- let g:tmuxline_theme = 'powerline'
- set laststatus=2 		"Show statusbar always.
- let g:airline_powerline_fonts = 1
- let g:airline_theme='night_owl'
- let g:airline#extensions#tabline#buffer_nr_show = 1
-      nmap <leader>1 <Plug>AirlineSelectTab1
-      nmap <leader>2 <Plug>AirlineSelectTab2
-      nmap <leader>3 <Plug>AirlineSelectTab3
-      nmap <leader>4 <Plug>AirlineSelectTab4
-      nmap <leader>5 <Plug>AirlineSelectTab5
-      nmap <leader>6 <Plug>AirlineSelectTab6
-      nmap <leader>7 <Plug>AirlineSelectTab7
-      nmap <leader>8 <Plug>AirlineSelectTab8
-      nmap <leader>9 <Plug>AirlineSelectTab9
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:tmuxline_theme = 'powerline'
+set laststatus=2 		"Show statusbar always.
+let g:airline_powerline_fonts = 1
+let g:airline_theme='bubblegum'
+  nmap <leader>1 <Plug>AirlineSelectTab1
+  nmap <leader>2 <Plug>AirlineSelectTab2
+  nmap <leader>3 <Plug>AirlineSelectTab3
+  nmap <leader>4 <Plug>AirlineSelectTab4
+  nmap <leader>5 <Plug>AirlineSelectTab5
+  nmap <leader>6 <Plug>AirlineSelectTab6
+  nmap <leader>7 <Plug>AirlineSelectTab7
+  nmap <leader>8 <Plug>AirlineSelectTab8
+  nmap <leader>9 <Plug>AirlineSelectTab9
 
 
 " " Promptline Stuff
