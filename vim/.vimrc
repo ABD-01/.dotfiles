@@ -178,7 +178,7 @@ set showcmd        " display incomplete commands
 set laststatus=2    " Always display the statusline in all windows
 set showtabline=2   " Always display the tabline, even if there is only one tab
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-" set t_Co=256                 " force vim to use 256 colors
+set t_Co=256                 " force vim to use 256 colors
 set number                  "Show line numbers              
 set hidden                  "Buffers can exist in the background without being in a window.
 "set nobackup       "no backup files
@@ -414,7 +414,6 @@ let g:airline_theme='bubblegum'
   nmap <leader>7 <Plug>AirlineSelectTab7
   nmap <leader>8 <Plug>AirlineSelectTab8
   nmap <leader>9 <Plug>AirlineSelectTab9
-
 
 " " Promptline Stuff
 " " sections (a, b, c, x, y, z, warn) are optional
