@@ -113,10 +113,10 @@ call plug#begin()
     " File searching with faster matching
     Plug 'ctrlpvim/ctrlp.vim'
     " Plug 'FelikZ/ctrlp-py-matcher'
-
+    
     "More autocomplete
     Plug 'tpope/vim-surround'
-   
+
    "  " Respect Common Editorconfig stuff
    "  " Plug 'editorconfig/editorconfig-vim'
    "  
@@ -151,6 +151,8 @@ call plug#begin()
    "  " Rails
    "  " Plug 'scrooloose/vim-rails'
 
+    Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
     " Pretty
     Plug 'ryanoasis/vim-devicons'
 
@@ -160,7 +162,7 @@ call plug#begin()
     "
     " Codeium
     Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-   "
+
 call plug#end()
 call plug#helptags()
 if !has('g:syntax_on')|syntax enable|endif
@@ -195,6 +197,8 @@ set undolevels=1000      " use many muchos levels of undo
 set visualbell           " don't beep
 set t_vb=
 set noerrorbells         " don't beep
+let &t_EI = "\e[2 q"
+let &t_SI = "\e[6 q"
 
 " " ================ Mappings ======================
 " " Probably NOT a good idea
@@ -218,7 +222,7 @@ map <leader>n :new<cr>
 map <leader>i I
 map <leader><c-p> :CtrlPBookmarkDir<CR>
 map <c-b> :CtrlPBuffer<CR>
-map <c-S-h> :CtrlPMRUFiles<CR>
+"map <c-s> :CtrlPMRUFiles<CR>
 
 " toggle relative numbering
 nnoremap <leader>rn :set rnu!<CR>
