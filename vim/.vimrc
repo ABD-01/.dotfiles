@@ -151,7 +151,7 @@ call plug#begin()
    "  " Rails
    "  " Plug 'scrooloose/vim-rails'
 
-    Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+    "Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
     " Pretty
     Plug 'ryanoasis/vim-devicons'
