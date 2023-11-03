@@ -6,6 +6,10 @@ eval "$(thefuck --alias)"
 # Aliases
 alias falcon='cd D:/PROJECTS/falcon/'
 alias cst='clear;git status'
+alias dl="cd ~/Downloads"
+alias p="cd ~/projects"
+alias g="git"
+
 alias matrix=MATRIX
 MATRIX()
 {
@@ -33,13 +37,6 @@ alias l='ls -CF'                              #
 
 source C:/Users/Muhammed/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
-MCUBUILD()
-{
-  WORKSPACE_PATH=D:/PROJECTS/falcon/ATCU_Workspace
-  IDE_PATH=C:/nxp/MCUXpressoIDE_11.4.1_6260/ide/mcuxpressoide.exe
-  unzip -o -qq $WORKSPACE_PATH/ATCU/project_settings.zip -d $WORKSPACE_PATH/ATCU
-  $IDE_PATH -nosplash -consoleLog -noExit -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data $WORKSPACE_PATH -cleanBuild ATCU/Debug_APP
-  echo "Done"
-}
+source C:/Users/Muhammed/.dotfiles/bash/workspace_aliases.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
