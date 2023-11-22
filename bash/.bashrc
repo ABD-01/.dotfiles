@@ -8,7 +8,36 @@ alias falcon='cd D:/PROJECTS/falcon/'
 alias cst='clear;git status'
 alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
-alias g="git"
+
+
+# ----------------------
+# Git Aliases
+# Ref: https://gist.github.com/mwhite/6887990
+# ----------------------
+source ~/.git-completion.bash
+alias g='git'
+
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+	. /etc/bash_completion
+fi
+
+function_exists() {
+	declare -f -F $1 > /dev/null
+	return $?
+}
+
+for al in $(git --list-cmds=alias); do
+	alias g$al="git $al"
+
+	complete_func=_git_$(__git_aliased_command $al)
+	function_exists $complete_fnc && __git_complete g$al $complete_func
+done
+
+
+# Go to chosen directory ($1) and then list out contents.
+function cdll() {
+        cd "$@" && ls -la
+}
 
 alias matrix=MATRIX
 MATRIX()
