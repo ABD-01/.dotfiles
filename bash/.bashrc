@@ -39,6 +39,7 @@ MCUBUILD()
   IDE_PATH=C:/nxp/MCUXpressoIDE_11.4.1_6260/ide/mcuxpressoide.exe
   unzip -o -qq $WORKSPACE_PATH/ATCU/project_settings.zip -d $WORKSPACE_PATH/ATCU
   $IDE_PATH -nosplash -consoleLog -noExit -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data $WORKSPACE_PATH -cleanBuild ATCU/Debug_APP
+  echo "Done"
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
