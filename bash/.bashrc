@@ -6,6 +6,39 @@ eval "$(thefuck --alias)"
 # Aliases
 alias falcon='cd D:/PROJECTS/falcon/'
 alias cst='clear;git status'
+alias dl="cd ~/Downloads"
+alias p="cd ~/projects"
+
+
+# ----------------------
+# Git Aliases
+# Ref: https://gist.github.com/mwhite/6887990
+# ----------------------
+source ~/.git-completion.bash
+alias g='git'
+
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+	. /etc/bash_completion
+fi
+
+function_exists() {
+	declare -f -F $1 > /dev/null
+	return $?
+}
+
+for al in $(git --list-cmds=alias); do
+	alias g$al="git $al"
+
+	complete_func=_git_$(__git_aliased_command $al)
+	function_exists $complete_fnc && __git_complete g$al $complete_func
+done
+
+
+# Go to chosen directory ($1) and then list out contents.
+function cdll() {
+        cd "$@" && ls -la
+}
+
 alias matrix=MATRIX
 MATRIX()
 {
@@ -33,10 +66,6 @@ alias l='ls -CF'                              #
 
 source C:/Users/Muhammed/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
-MCUBUILD()
-{
-  WORKSPACE_PATH=D:/PROJECTS/falcon/ATCU_Workspace
-  IDE_PATH=C:/nxp/MCUXpressoIDE_11.4.1_6260/ide/mcuxpressoide.exe
-  unzip -o -qq $WORKSPACE_PATH/ATCU/project_settings.zip -d $WORKSPACE_PATH/ATCU
-  $IDE_PATH -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data $WORKSPACE_PATH -cleanBuild ATCU/Debug_APP
-}
+source C:/Users/Muhammed/.dotfiles/bash/workspace_aliases.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
