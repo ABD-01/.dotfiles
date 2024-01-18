@@ -30,13 +30,14 @@ call plug#begin()
 
     " Plug 'Shougo/vimproc.vim', { 'do': 'make' }
     "{ 'for': 'cpp' } WASTE. Python2 ONLY
-   " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } | Plug 'l3nkz/ycmtex' 
-   " autocmd! User YouCompleteMe call youcompleteme#Enable()
+  "  Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } | Plug 'l3nkz/ycmtex' 
+  "  autocmd! User YouCompleteMe call youcompleteme#Enable()
 
     " NERD tree will be loaded on the first invocation of NERDTreeToggle command
     Plug 'scrooloose/nerdtree'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
+    " Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    Plug 'unkiwii/vim-nerdtree-sync'  " to sync the current file
 
     " Because everything must be tracked
     Plug 'wakatime/vim-wakatime'
@@ -51,72 +52,53 @@ call plug#begin()
     Plug 'Townk/vim-autoclose'
 
     " Git wrapper inside Vim
-    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-fugitive'
 
    "  " Handle surround chars like ''
    "  Plug 'tpope/vim-surround'
 
     " Align your = etc.
-    Plug 'vim-scripts/Align'
+    " Plug 'vim-scripts/Align'
 
    "  " Better Minibuff Kinda Pointless?
-   "  " Plug 'weynhamz/vim-plugin-minibufexpl'
-   "
-   "  " Javascript
-   "  "Plug 'pangloss/vim-javascript'
-   "  " Plug 'othree/javascript-libraries-syntax.vim'
-   "  " Plug 'othree/yajs.vim'
-   "
+    " Plug 'weynhamz/vim-plugin-minibufexpl'
+
     " Julia
     Plug 'JuliaLang/julia-vim'
-   "  " Css
-   "  Plug 'skammer/vim-css-color'
+
    "  " Less
     " Plug 'groenewege/vim-less' 
-   "
-   "  " I need Colemak
-   "  " Plug 'jooize/vim-colemak'
 
     " Python
     " Plug 'klen/python-mode'
-    Plug 'jmcantrell/vim-virtualenv'  " This should fix the virtualenvs.
+    " Plug 'jmcantrell/vim-virtualenv'  " This should fix the virtualenvs.
 
     " Movement
     Plug 'matze/vim-move'
     
     " Git Stuff
     Plug 'airblade/vim-gitgutter'
-   "  " Plug 'mattn/gist-vim'
-   "  " Plug 'gregsexton/gitv'
-   "  " Latex!!!! Latex Box/atp_vim is obsoleted by vimtex.
-   "  " Plug 'vim-latex/vim-latex'
-   "  " Plug 'gerw/vim-latex-suite'
-   "   "Plug 'coot/atp_vim'
-   "  "Plug 'LaTeX-Box-Team/LaTeX-Box'
-   "  " Plug 'gi1242/vim-tex-syntax'
-   "  " Plug 'lervag/vimtex'
 
     " Not that powerline isn't perfect... right?
     Plug 'bling/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     " Undo tree
     " Plug 'vim-scripts/Gundo'
-    Plug 'mbbill/undotree' " Gundo not working
+    " Plug 'mbbill/undotree' " Gundo not working
 
-   "  " Apparently, gvim in vim
-   "  " Plug 'vim-scripts/CSApprox'
 
     " Why we theme
-    Plug 'tomasr/molokai'
+    " Plug 'tomasr/molokai'
     Plug 'flazz/vim-colorschemes'
+    Plug 'dracula/vim', { 'as': 'dracula' }
 
     " File searching with faster matching
     Plug 'ctrlpvim/ctrlp.vim'
     " Plug 'FelikZ/ctrlp-py-matcher'
-
+    
     "More autocomplete
     Plug 'tpope/vim-surround'
-   
+
    "  " Respect Common Editorconfig stuff
    "  " Plug 'editorconfig/editorconfig-vim'
    "  
@@ -129,43 +111,27 @@ call plug#begin()
    "  " Completion --> Obsoleted by YouCompleteMe
    " " Plug 'othree/vim-autocomplpop'
    " " Plug 'Shougo/neocomplete.vim'
-   "
-   "  " Closers
-   "  " Plug 'Raimondi/delimitMate'
-   "
-   "  " Padding
-   "  " Plug 'tpope/vim-sleuth'
-   "
+
    "  " Tmux Love
    "  Plug 'christoomey/vim-tmux-navigator'
    "  Plug 'benmills/vimux'
    "  " This in-case the status-bar gets too much..
    "  Plug 'edkolev/tmuxline.vim'
-   "
-   "  " Prompt Love
-   "  Plug 'edkolev/promptline.vim'
-   "
-   "  " Ruby ending
-   "  " Plug 'tpope/vim-endwise'
-   "
-   "  " Rails
-   "  " Plug 'scrooloose/vim-rails'
 
     " Pretty
     Plug 'ryanoasis/vim-devicons'
 
-   "  " Orgmode
-   "  " Plug 'axvr/org.vim'
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    "
     " Codeium
     Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-   "
+
+    " Any Jump
+    Plug 'pechorin/any-jump.vim'
+
 call plug#end()
 call plug#helptags()
 if !has('g:syntax_on')|syntax enable|endif
 filetype plugin indent on
-"filetype indent on
+filetype indent on
 " Behold paste indenting!
 set pastetoggle=<F2>
 " set showmode
@@ -195,6 +161,10 @@ set undolevels=1000      " use many muchos levels of undo
 set visualbell           " don't beep
 set t_vb=
 set noerrorbells         " don't beep
+let &t_EI = "\e[2 q"
+let &t_SI = "\e[6 q"
+set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
+
 
 " " ================ Mappings ======================
 " " Probably NOT a good idea
@@ -202,20 +172,15 @@ set noerrorbells         " don't beep
 nnoremap ; :
 " "Spacemacs Esc
 inoremap jk <ESC>
-" "Fake Sudo
-" " cmap w!! w !sudo tee % >/dev/null
-" Allow j and k to be more normal.
-"nmap j gj
-"nmap k gk
-" " Use Q for formatting the current paragraph (or selection)
-" vmap Q gq
-" nmap Q gqap
-"
+
 " SET LEADER
 let mapleader=" "
 " let maplocalleader = "\\"
 map <leader>n :new<cr>
 map <leader>i I
+map <leader><c-p> :CtrlPBookmarkDir<CR>
+map <c-b> :CtrlPBuffer<CR>
+"map <c-s> :CtrlPMRUFiles<CR>
 
 " toggle relative numbering
 nnoremap <leader>rn :set rnu!<CR>
@@ -225,9 +190,11 @@ vnoremap <Tab> >
 vnoremap <S-Tab> <
 
 "  w wq q   --  Quick Save
-nmap <Leader>w :w<CR>
-nmap <Leader>q :q<CR>
-nmap <Leader>wq :wq<CR>
+" nmap <Leader>w :w<CR>
+nmap <C-s> :w<CR>
+" nmap <Leader>q :q<CR>
+nmap <leader>x :bd<CR>
+" nmap <Leader>wq :wq<CR>
 nmap <Leader>Q :q!<CR>
 
 
@@ -259,6 +226,11 @@ set foldnestmax=10      " allow up to 10 nested folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
+"================== Vim Theme =========================== 
+colorscheme gruvbox
+" other good ones: gruvbox, default, moonshine, emacs, materialbox, space-vim, molokai, dracula
+set background=dark
+
 " ================ Searches ============================
 set incsearch      " do incremental searching
 set hlsearch        " Highlight searches by default
@@ -270,10 +242,16 @@ omap / <Plug>(easymotion-tn)
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+" map  n <Plug>(easymotion-next)
+" map  N <Plug>(easymotion-prev)
+" Removed it as it did not allow searching for * and #
 
 nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
+
+"" Fuzzy File Searc using in build feature no plugin
+"" use `:find filename`
+set path+=**        " search into subdirectores, provide tab
+set wildmenu        " display all matching files when tab completes
 
 " Ctrl P Stuff
 "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
@@ -286,8 +264,6 @@ map <C-p> :CtrlPMRUFiles<CR>
 "let g:ctrlp_root_markers = ['.ctrlp','.latexmain','.agignore']
 "let g:ctrlp_working_path_mode = 0 
 let g:ctrlp_use_caching = 1
-"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
- "Use a .agignore instead for a per project thing. Also for a global thing.
 
 let g:ctrlp_custom_ignore = {
 \ 'dir':  '\v[\/]\.(git|hg|svn|cache|)$',
@@ -304,86 +280,14 @@ map <Leader>K <Plug>(easymotion-sol-k)
 
 " Vim Move
 
-" " GUI STUFF
-"     if has("gui_running")
-"        " any code here affects gvim but not console vim
-" set background=dark
-" set guifont=CaskaydiaCove\ Nerd\ Font\ Regular\ 15
-"  " Don’t blink cursor in normal mode
-" set guicursor=n:blinkon0
-" " Better line-height
-" set linespace=8
-" let g:Powerline_symbols='fancy'
-" set encoding=utf-8
-" set termencoding=utf-8
-" set t_Co=256
-"     else
-"        " any code here affects console vim but not gvim
-"     endif 
-"
-"
-" " YouCompleteMe Stuff
-" "use omnicomplete whenever there's no completion engine in youcompleteme (for
-" "example, in the case of PHP)
-" set omnifunc=syntaxcomplete#Complete
-" " let g:ycm_key_invoke_completion = '<C-s>' " Ctrl-suggest - doesn't work
-" " because C-s freezes the command line
-" let g:ycm_key_invoke_completion = '<C-v>'
-" " let g:ycm_key_list_select_completion = ['<C-j>']
-" " let g:ycm_key_list_previous_completion = ['<C-k>']
-" let g:ycm_key_list_select_completion = ['<Tab>']
-" let g:ycm_key_list_previous_completion = ['<S-Tab>']
-"
-" " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
-"
-"
-"
-" " " Common Latex Stuff
-" " let g:tex_flavor = 'latex'
-" "
-" " " Vimtex
-" "   let g:vimtex_view_general_viewer = 'zathura'
-" "   let g:vimtex_view_method = 'zathura'
-" "   let g:vimtex_latexmk_engine = '-pdfxe'
-" " "  let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
-" " "  let g:vimtex_view_general_options_latexmk = '--unique'
-" "   let g:vimtex_latexmk_options= '--bibtex --silent -shell-escape -quiet --synctex=-1 -src-specials -pdfxe'
-" "   let g:vimtex_quickfix_ignored_warnings = [
-" "         \ 'Underfull',
-" "         \ 'Overfull',
-" "         \ 'specifier changed to',
-" "         \ 'wrong kind of dash'
-" "       \ ]
-" " " let g:vimtex_complete_enabled
-" " " let g:vimtex_complete_patterns.ref
-" " " let g:vimtex_complete_patterns.bib
-" " " let g:vimtex_complete_close_braces
-" " " let g:vimtex_complete_recursive_bib
-"
-" "YouCompleteMe
-"   if !exists('g:ycm_semantic_triggers')
-"     let g:ycm_semantic_triggers = {}
-"   endif
-"   let g:ycm_semantic_triggers.tex = [
-"         \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
-"         \ ]
-"
-"
-"
-" " Latex Box
-" "map <Leader> `
-" " let g:Tex_DefaultTargetFormat = 'pdf'  
-" " let g:Tex_BibtexFlavor = 'biber'
-" " let g:Tex_CompileRule_pdf = 'latexmk --bibtex --silent -quiet --synctex=-1 -src-specials -interaction=nonstopmode -pdf $*'
-" " let g:Tex_CompileRule_dvi = 'latexmk --bibtex --synctex=-1 -src-specials -interaction=nonstopmode -dvi $*'
-" " let g:Tex_ViewRule_dvi = 'okular $*.dvi &'
-"  "let g:Tex_ViewRule_pdf = 'okular $*.pdf &'
-" " let g:Tex_IgnoreLevel = 5
-" " map <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
-"  "let g:Tex_MultipleCompileFormats = 'pdf, dvi' Not needed cuz now its all latexmk
-"
-" " Splitting Stuff
+"" GIT Stuff without plugin
+" Fugitive is nice but https://sharats.me/posts/automating-the-vim-workplace/ says it makes vim slow on windows
+" which is problem I am also facing, hence:
+nnoremap <Leader>g :ter git --no-pager<Space>
+nnoremap <Leader>g :ter <C-r>=&buftype == 'terminal'
+            \ && job_info(term_getjob('%')).cmd[0] ==? 'git' ? '++curwin ' : ''
+            \ <CR>git --no-pager<Space>
+
 
 " Easy window navigation
 map <C-h> <C-w>h
@@ -395,25 +299,44 @@ map <C-l> <C-w>l
 vmap <C-m> <plug>NERDCommenterToggle
 nmap <C-m> <plug>NERDCommenterToggle
 
-" Vim Airline Stuff
-" Use the airline thing anyway.
-let g:miniBufExplAutoStart = 0
+" " Vim Airline Stuff
+" " Use the airline thing anyway.
+" let g:miniBufExplAutoStart = 0
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:tmuxline_theme = 'powerline'
-set laststatus=2 		"Show statusbar always.
+" let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:tmuxline_theme = 'powerline'
+" set laststatus=2 		"Show statusbar always.
 let g:airline_powerline_fonts = 1
-let g:airline_theme='bubblegum'
-  nmap <leader>1 <Plug>AirlineSelectTab1
-  nmap <leader>2 <Plug>AirlineSelectTab2
-  nmap <leader>3 <Plug>AirlineSelectTab3
-  nmap <leader>4 <Plug>AirlineSelectTab4
-  nmap <leader>5 <Plug>AirlineSelectTab5
-  nmap <leader>6 <Plug>AirlineSelectTab6
-  nmap <leader>7 <Plug>AirlineSelectTab7
-  nmap <leader>8 <Plug>AirlineSelectTab8
-  nmap <leader>9 <Plug>AirlineSelectTab9
+let g:airline_theme='base16_gruvbox_dark_hard' " others: dark, term, base16_monokai, base16_twilight
+let g:airline#extensions#tabline#buffer_nr_show = 0   " configure whether buffer numbers should be shown.
+let g:airline#extensions#tabline#show_tab_nr = 1      " enable/disable displaying tab number in tabs mode. 
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+
+" "TABLINE:                                                                                                                                 
+" " Ref: https://www.reddit.com/r/vim/comments/crs61u/best_airline_settings/                                                                                                                     
+let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline                                            
+let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)      
+let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab                                                    
+let g:airline#extensions#tabline#show_tab_count = 2    " dont show tab numbers on the right is less than 2 tabs                                                           
+let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline                                                 
+" let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline                                  
+let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline               
+let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers                                                              
+let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+let g:airline#extensions#nerdtree_statusline = 1       " disables separate statusline for NerdTree
+let g:airline#extensions#tabline#show_tabs = 1         " enable/disable displaying tabs, regardless of number. (c)          
+let g:airline#extensions#whitespace#enabled = 0          " disable message regarding whitespaces:
+" let g:airline_section_y = ''
 
 " " Promptline Stuff
 " " sections (a, b, c, x, y, z, warn) are optional
@@ -450,15 +373,6 @@ let g:airline_theme='bubblegum'
 autocmd BufWritePost .vimrc source ~/.vimrc
 
 
-" " Vim Markdown Stuff
-" let g:vim_markdown_math=1
-" let g:vim_markdown_frontmatter=1
-"
-"Vim Theme 
-colorscheme gruvbox
-set background=dark
-
-
 " More Stuff
 " Vim jump to the last position when reopening a file
 if has("autocmd")
@@ -466,6 +380,13 @@ if has("autocmd")
  \| exe "normal! g'\"" | endif
 endif
 
+" " Alternative to statusline: Ruler
+" set ruler
+" let &rulerformat = '%50(b%n %{&ff} %{&ft}' .
+"             \ '%( %{len(getqflist()) ? ("q" . len(getqflist())) : ""}%)' .
+"             \ '%( %{search("\\s$", "cnw", 0, 200) ? "∙$" : ""}%)' .
+"             \ '%( %{exists("b:stl_fn") ? call(b:stl_fn) : ""}%)' .
+"             \ '%= L%l,%c%V %P %*%)'
 
 
 " " nnoremap <C-S-u>  :GundoToggle<CR>
@@ -520,10 +441,11 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
  \ }
 
 let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
-let g:NERDTreeIgnore = ['^node_modules$']
+let NERDTreeIgnore=['^node_modules$', '\~$', '.o$', 'bower_components', 'node_modules', '__pycache__']
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
 
 "Git Gutter
 highlight GitGutterAdd    guifg=#009900 ctermfg=Green

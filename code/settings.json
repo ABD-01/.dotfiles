@@ -1,5 +1,4 @@
 {
-    "C_Cpp.default.compilerPath": "cl.exe",
     "tabnine.experimentalAutoImports": true,
     "workbench.colorTheme": "Dark Material Dracula",
 
@@ -97,9 +96,9 @@
     "workbench.colorCustomizations": {},
     "terminal.integrated.minimumContrastRatio": 1,
     "terminal.integrated.fontFamily": "FiraCode Nerd Font",
-    "editor.lineNumbers": "on",
+    "editor.lineNumbers": "relative",
     "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "black.lineLength": 100,
     "CodeGPT.apiKey": "GPT4All",
@@ -111,5 +110,17 @@
         "*": true,
         "markdown": true
     },
-    "mcuxpresso.sdks": []
+    "mcuxpresso.sdks": [],
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "workbench.editorAssociations": {
+        "*.bin": "hexEditor.hexedit"
+    },
+    "yaml.schemas": {
+        "file:///c%3A/Users/Muhammed/.vscode/extensions/atlassian.atlascode-3.0.9/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "redhat.telemetry.enabled": true,
+    "diffEditor.experimental.showMoves": true,
+    "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+    "gitlens.ai.experimental.provider": "openai",
+    "gitlens.ai.experimental.openai.model": "gpt-4-1106-preview"
 }
