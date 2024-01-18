@@ -4,7 +4,6 @@ export PYTHONIOENCODING="utf-8"
 eval "$(thefuck --alias)"
 
 # Aliases
-alias falcon='cd D:/PROJECTS/falcon/'
 alias cst='clear;git status'
 alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
@@ -64,8 +63,8 @@ alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
 
-source C:/Users/Muhammed/AppData/Roaming/dystroy/broot/config/launcher/bash/br
+source $HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
-source C:/Users/Muhammed/.dotfiles/bash/workspace_aliases.sh
+source $HOME/.dotfiles/bash/workspace_aliases.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
