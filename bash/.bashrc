@@ -68,7 +68,7 @@ alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
 
-source C:/Users/Muhammed/AppData/Roaming/dystroy/broot/config/launcher/bash/br
+source $HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
 [ -f ~/.dotfiles/bash/workspace_aliases.sh ] && source C:/Users/Muhammed/.dotfiles/bash/workspace_aliases.sh
 
