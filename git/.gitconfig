@@ -1,8 +1,6 @@
 [user]
 	email = muhammed.shaikh@accoladeelectronics.com
 	name = Muhammed Abdullah Shaikh
-[core]
-	editor = nvim
 [alias]
     s = status -sb
 	a = add .
@@ -19,10 +17,10 @@
   	graph = log --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
   	graph2 = log --graph --full-history --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m"
     
-	# fb = !sh -c \"git branch -a | grep -v remotes | grep $1\"
-	# cb = !sh -c \"git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout\"
-	fb = "!git branch -a | grep -v remotes | grep $1"
-	cb = "!git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout"
+    fb = !sh -c \"git branch -a | grep -v remotes | grep $1\"
+    cb = !sh -c \"git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout\"
+    # fb = "!git branch -a | grep -v remotes | grep $1"
+    # cb = "!git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout"
 
 	# list aliases
  	la = "!git config -l | grep alias | cut -c 7-"
@@ -30,3 +28,13 @@
 	tool = bc4
 [mergetool "bc4"]
 	path = C:/Program Files/Beyond Compare 4/BCompare.exe
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[maintenance]
+    auto = False
+    strategy = incremental
+	repo = D:/PROJECTS/falcon

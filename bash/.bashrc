@@ -4,11 +4,11 @@ export PYTHONIOENCODING="utf-8"
 eval "$(thefuck --alias)"
 
 # Aliases
-alias falcon='cd D:/PROJECTS/falcon/'
 alias cst='clear;git status'
 alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
 
+alias killpy="ps | grep python | grep -v grep | awk '{print \$1}' | xargs kill -9"
 
 # ----------------------
 # Git Aliases
@@ -33,6 +33,10 @@ for al in $(git --list-cmds=alias); do
 	function_exists $complete_fnc && __git_complete g$al $complete_func
 done
 
+# Create a new directory and enter it
+function mkcd() {
+	mkdir -p "$@" && cd "$@"
+}
 
 # Go to chosen directory ($1) and then list out contents.
 function cdll() {
@@ -66,6 +70,6 @@ alias l='ls -CF'                              #
 
 source C:/Users/Muhammed/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
-source C:/Users/Muhammed/.dotfiles/bash/workspace_aliases.sh
+[ -f ~/.dotfiles/bash/workspace_aliases.sh ] && source C:/Users/Muhammed/.dotfiles/bash/workspace_aliases.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

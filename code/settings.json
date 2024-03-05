@@ -116,11 +116,48 @@
         "*.bin": "hexEditor.hexedit"
     },
     "yaml.schemas": {
-        "file:///c%3A/Users/Muhammed/.vscode/extensions/atlassian.atlascode-3.0.9/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///c%3A/Users/Muhammed/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "redhat.telemetry.enabled": true,
     "diffEditor.experimental.showMoves": true,
     "diffEditor.useInlineViewWhenSpaceIsLimited": false,
     "gitlens.ai.experimental.provider": "openai",
-    "gitlens.ai.experimental.openai.model": "gpt-4-1106-preview"
+    "gitlens.ai.experimental.openai.model": "gpt-4-1106-preview",
+    "atlascode.jira.jqlList": [
+        {
+            "id": "4d1b4002-13c5-4a08-8c26-99791991bc10",
+            "enabled": true,
+            "name": "My accoladeelectronics Issues",
+            "query": "assignee = currentUser() AND resolution = Unresolved ORDER BY lastViewed DESC",
+            "siteId": "b983570c-50d6-4f49-98a7-a25e07103b05",
+            "monitor": true
+        }
+    ],
+    "atlascode.bitbucket.statusbar.enabled": true,
+    "atlascode.bitbucket.statusbar.showProduct": false,
+    "atlascode.bitbucket.statusbar.showUser": true,
+    "atlascode.bitbucket.statusbar.showLogin": true,
+    "atlascode.jira.statusbar.showProduct": false,
+    "atlascode.jira.statusbar.enabled": true,
+    "atlascode.jira.statusbar.showLogin": false,
+    "atlascode.jira.statusbar.showUser": false,
+    "cmake.showOptionsMovedNotification": false,
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
+    "julia.symbolCacheDownload": true,
+    "julia.enableTelemetry": false,
+    "cmake.additionalCompilerSearchDirs": [
+        "C:/msys64/mingw32/bin",
+        "C:/msys64/mingw64/bin",
+        "C:/msys64/clang32/bin",
+        "C:/msys64/clang64/bin",
+        "C:/msys64/clangarm64/bin",
+        "C:/msys64/ucrt64/bin"
+    ],
+    "[cpp]": {
+        "editor.wordBasedSuggestions": "off",
+        "editor.suggest.insertMode": "replace",
+        "editor.semanticHighlighting.enabled": true
+    }
 }

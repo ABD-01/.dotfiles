@@ -1,3 +1,6 @@
+alias falcon='cd D:/PROJECTS/falcon/'
+alias dll='cd D:/PROJECTS/atcu-dll/'
+
 MCUBUILD()
 {
   WORKSPACE_PATH=D:/PROJECTS/falcon/ATCU_Workspace
