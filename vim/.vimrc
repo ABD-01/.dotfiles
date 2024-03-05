@@ -197,6 +197,11 @@ nmap <leader>x :bd<CR>
 " nmap <Leader>wq :wq<CR>
 nmap <Leader>Q :q!<CR>
 
+
+"buffer navigations
+nnoremap <S-L> :bn<CR>
+nnoremap <S-H> :bp<CR>
+
 " ================ Indentation ======================
 
 " set autoindent "Set in vim-sensible
@@ -250,8 +255,12 @@ set wildmenu        " display all matching files when tab completes
 
 " Ctrl P Stuff
 "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<C-f>'
 let g:ctrlp_cmd = 'CtrlP'
+map <C-f> :CtrlP<CR>
+map <leader><c-p> :CtrlPBookmarkDir<CR>
+map <C-b> :CtrlPBuffer<CR>
+map <C-p> :CtrlPMRUFiles<CR>
 "let g:ctrlp_root_markers = ['.ctrlp','.latexmain','.agignore']
 "let g:ctrlp_working_path_mode = 0 
 let g:ctrlp_use_caching = 1
