@@ -52,10 +52,10 @@ call plug#begin()
     Plug 'Townk/vim-autoclose'
 
     " Git wrapper inside Vim
-    " Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
 
    "  " Handle surround chars like ''
-   "  Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-surround'
 
     " Align your = etc.
     " Plug 'vim-scripts/Align'
@@ -96,9 +96,6 @@ call plug#begin()
     Plug 'ctrlpvim/ctrlp.vim'
     " Plug 'FelikZ/ctrlp-py-matcher'
     
-    "More autocomplete
-    Plug 'tpope/vim-surround'
-
    "  " Respect Common Editorconfig stuff
    "  " Plug 'editorconfig/editorconfig-vim'
    "  
@@ -197,11 +194,6 @@ nmap <leader>x :bd<CR>
 " nmap <Leader>wq :wq<CR>
 nmap <Leader>Q :q!<CR>
 
-
-"buffer navigations
-nnoremap <S-L> :bn<CR>
-nnoremap <S-H> :bp<CR>
-
 " ================ Indentation ======================
 
 " set autoindent "Set in vim-sensible
@@ -298,6 +290,7 @@ map <C-l> <C-w>l
 " COmmenting
 vmap <C-m> <plug>NERDCommenterToggle
 nmap <C-m> <plug>NERDCommenterToggle
+let g:NERDCustomDelimiters = { 'c': { 'left': '// ','right': '' } }
 
 " " Vim Airline Stuff
 " " Use the airline thing anyway.
@@ -406,6 +399,7 @@ endif
 
 " NERDtree Key bound to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
+map <leader>f :NERDTreeFind<CR>
 
 " NERDtree FileType Highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
