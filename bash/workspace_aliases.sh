@@ -1,11 +1,13 @@
 alias falcon='cd D:/PROJECTS/falcon/'
-alias dll='cd D:/PROJECTS/atcu-dll/'
+alias ddl='cd D:/PROJECTS/atcu-ddl/'
+alias tcuev='cd D:/PROJECTS/atcu-ev/'
+alias ucan='cd D:/PROJECTS/can-utility/'
 
 MCUBUILD()
 {
   WORKSPACE_PATH=D:/PROJECTS/falcon/ATCU_Workspace
   IDE_PATH=C:/nxp/MCUXpressoIDE_11.4.1_6260/ide/mcuxpressoide.exe
-#   unzip -o -qq $WORKSPACE_PATH/ATCU/project_settings.zip -d $WORKSPACE_PATH/ATCU
+  unzip -o -qq $WORKSPACE_PATH/ATCU/project_settings.zip -d $WORKSPACE_PATH/ATCU
   $IDE_PATH \
     -nosplash \
     -consoleLog \
