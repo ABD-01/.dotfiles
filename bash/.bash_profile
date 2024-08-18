@@ -2,5 +2,5 @@
 test -f ~/.profile && . ~/.profile
 test -f ~/.bashrc && . ~/.bashrc
 
-source C:/Users/Muhammed/AppData/Roaming/dystroy/broot/config/launcher/bash/br
+[ -f "$HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br" ] && source $HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 

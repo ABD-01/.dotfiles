@@ -69,10 +69,9 @@ alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
 
-# [ -f "$HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br" ] && source $HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br
+[ -f "$HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br" ] && source $HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
 [ -f ~/.dotfiles/bash/workspace_aliases.sh ] && source "$HOME/.dotfiles/bash/workspace_aliases.sh"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-alias clang='/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/Llvm/bin/clang.exe'

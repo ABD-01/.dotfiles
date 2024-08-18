@@ -23,3 +23,5 @@ CLEANDEBUG()
   WORKSPACE_PATH=D:/PROJECTS/falcon/ATCU_Workspace
   rm -rf $WORKSPACE_PATH/ATCU/Debug_APP/
 }
+
+alias clang='/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/Llvm/bin/clang.exe'
