@@ -37,7 +37,7 @@ call plug#begin()
     Plug 'scrooloose/nerdtree'
     " Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    Plug 'unkiwii/vim-nerdtree-sync'  " to sync the current file
+    "Plug 'unkiwii/vim-nerdtree-sync'  " to sync the current file
 
     " Because everything must be tracked
     Plug 'wakatime/vim-wakatime'
@@ -93,9 +93,13 @@ call plug#begin()
     Plug 'dracula/vim', { 'as': 'dracula' }
 
     " File searching with faster matching
-    Plug 'ctrlpvim/ctrlp.vim'
+    "Plug 'ctrlpvim/ctrlp.vim'
     " Plug 'FelikZ/ctrlp-py-matcher'
-    
+
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+
+
    "  " Respect Common Editorconfig stuff
    "  " Plug 'editorconfig/editorconfig-vim'
    "  
@@ -245,24 +249,28 @@ nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
 set path+=**        " search into subdirectores, provide tab
 set wildmenu        " display all matching files when tab completes
 
-" Ctrl P Stuff
-"let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
-let g:ctrlp_map = '<C-f>'
-let g:ctrlp_cmd = 'CtrlP'
-map <C-f> :CtrlP<CR>
-map <leader><c-p> :CtrlPBookmarkDir<CR>
-map <C-b> :CtrlPBuffer<CR>
-map <C-p> :CtrlPMRUFiles<CR>
-"let g:ctrlp_root_markers = ['.ctrlp','.latexmain','.agignore']
-"let g:ctrlp_working_path_mode = 0 
-let g:ctrlp_use_caching = 1
+" " Ctrl P Stuff
+" "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
+" let g:ctrlp_map = '<C-f>'
+" let g:ctrlp_cmd = 'CtrlP'
+" map <C-f> :CtrlP<CR>
+" map <leader><c-p> :CtrlPBookmarkDir<CR>
+" map <C-b> :CtrlPBuffer<CR>
+" map <C-p> :CtrlPMRUFiles<CR>
+"  "let g:ctrlp_root_markers = ['.ctrlp','.latexmain','.agignore']
+"  "let g:ctrlp_working_path_mode = 0 
+" let g:ctrlp_use_caching = 1
+" 
+" let g:ctrlp_custom_ignore = {
+" \ 'dir':  '\v[\/]\.(git|hg|svn|cache|)$',
+" \ 'file': '\v\.(exe|so|dll|dll|log|lof|swp|out)$',
+" \ 'link': 'some_bad_symbolic_links',
+" \ }
 
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\v[\/]\.(git|hg|svn|cache|)$',
-\ 'file': '\v\.(exe|so|dll|dll|log|lof|swp|out)$',
-\ 'link': 'some_bad_symbolic_links',
-\ }
-
+" Fcuk Ctrl-P (it is slow) I use fzf
+map <C-f> :Files<CR>
+map <C-b> :Buffers<CR>
+map <C-p> :History<CR>
 
 " Easy Motion
 " keep cursor colum JK motion

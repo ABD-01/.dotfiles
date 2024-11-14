@@ -7,7 +7,9 @@ eval "$(thefuck --alias)"
 # Aliases
 alias cst='clear;git status'
 alias dl="cd ~/Downloads"
-alias p="cd ~/projects"
+if [ -d "~/projects" ]; then
+    alias p="cd ~/projects"
+fi
 
 alias killpy="ps | grep python | grep -v grep | awk '{print \$1}' | xargs kill -9"
 
