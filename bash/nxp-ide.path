@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Convert Windows-style paths to Unix-style paths and add to PATH
+export PATH="$PATH:\
+/c/nxp/MCUXpressoIDE_11.4.1_6260/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.4.0.202103011116/tools/bin:\
+/c/nxp/MCUXpressoIDE_11.4.1_6260/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.4.0.202103011116/buildtools/bin:\
+/c/nxp/MCUXpressoIDE_11.4.1_6260/ide/plugins/com.nxp.mcuxpresso.tools.bin.win32_11.4.0.202109131312/binaries:\
+/c/nxp/MCUXpressoIDE_11.4.1_6260/ide/jre/bin/server:\
+/c/nxp/MCUXpressoIDE_11.4.1_6260/ide/jre/bin:\
+/c/nxp/MCUXpressoIDE_11.4.1_6260/ide"

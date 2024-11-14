@@ -1,7 +1,11 @@
+alias p='cd D:/PROJECTS/'
+
 alias falcon='cd D:/PROJECTS/falcon/'
 alias ddl='cd D:/PROJECTS/atcu-ddl/'
 alias tcuev='cd D:/PROJECTS/atcu-ev/'
 alias ucan='cd D:/PROJECTS/can-utility/'
+
+alias rp='cd D:/Renesas_PROJECTS'
 
 MCUBUILD()
 {
@@ -25,3 +29,5 @@ CLEANDEBUG()
 }
 
 alias clang='/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/Llvm/bin/clang.exe'
+
+alias vact='source ~/.virtualenvs/ATCU_Workspace-VdKM886n/Scripts/activate'
