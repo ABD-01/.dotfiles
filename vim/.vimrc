@@ -128,10 +128,14 @@ call plug#begin()
     " Any Jump
     Plug 'pechorin/any-jump.vim'
 
+    " Diff
+    Plug 'will133/vim-dirdiff'
+
 call plug#end()
 call plug#helptags()
 if !has('g:syntax_on')|syntax enable|endif
 filetype plugin indent on
+
 filetype indent on
 " Behold paste indenting!
 set pastetoggle=<F2>
@@ -165,7 +169,7 @@ set noerrorbells         " don't beep
 let &t_EI = "\e[2 q"
 let &t_SI = "\e[6 q"
 set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
-
+set splitbelow          " This will cause all splits to happen below (including terminal).
 
 " " ================ Mappings ======================
 " " Probably NOT a good idea
@@ -173,6 +177,7 @@ set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref:
 nnoremap ; :
 " "Spacemacs Esc
 inoremap jk <ESC>
+inoremap kk <ESC>
 
 " SET LEADER
 let mapleader=" "
@@ -180,7 +185,7 @@ let mapleader=" "
 map <leader>n :new<cr>
 map <leader>i I
 map <leader><c-p> :CtrlPBookmarkDir<CR>
-map <c-b> :CtrlPBuffer<CR>
+"map <c-b> :CtrlPBuffer<CR>
 "map <c-s> :CtrlPMRUFiles<CR>
 
 " toggle relative numbering
@@ -197,6 +202,23 @@ nmap <C-s> :w<CR>
 nmap <leader>x :bd<CR>
 " nmap <Leader>wq :wq<CR>
 nmap <Leader>Q :q!<CR>
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Terminal Shortcuts
+tmap <C-h> <C-w>h
+tmap <C-j> <C-w>j
+tmap <C-k> <C-w>k
+"tmap <C-l> <C-w>l
+tnoremap jk <C-W>N
+
+" copy file name
+nmap <Leader>fn :let @* = expand("%")<CR>
+nmap <Leader>fp :let @* = expand("%:p")<CR>
 
 " ================ Indentation ======================
 
@@ -287,13 +309,6 @@ nnoremap <Leader>g :ter git --no-pager<Space>
 nnoremap <Leader>g :ter <C-r>=&buftype == 'terminal'
             \ && job_info(term_getjob('%')).cmd[0] ==? 'git' ? '++curwin ' : ''
             \ <CR>git --no-pager<Space>
-
-
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
 " COmmenting
 vmap <C-m> <plug>NERDCommenterToggle
