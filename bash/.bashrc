@@ -77,3 +77,4 @@ alias l='ls -CF'                              #
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+[ -f ~/z/z.sh ] && source ~/z/z.sh
