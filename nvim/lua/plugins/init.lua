@@ -266,10 +266,10 @@ local default_plugins = {
     end,
   },
 
-  {
-    "Exafunction/codeium.vim",
-    lazy = false
-  }
+  --{
+    --"Exafunction/codeium.vim",
+    --lazy = false
+  --}
 }
 
 local config = require("core.utils").load_config()

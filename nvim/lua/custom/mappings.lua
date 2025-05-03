@@ -1,18 +1,30 @@
 local M = {}
 
-M.jk = {
+M.general = {
+  n = {
+    [";"] = { ":", "Command mode" },
+    ["<leader>fn"] = { [[:let @* = expand("%")<CR>]], "Copy filename" },
+    ["<leader>fp"] = { [[:let @* = expand("%:p")<CR>]], "Copy full path" },
+  },
+
   i = {
-     ["jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
-  }
+    ["jk"] = { "<ESC>", "Escape insert mode" , opts = { nowait = true }},
+    ["kk"] = { "<ESC>", "Escape insert mode" , opts = { nowait = true }},
+  },
+
+  v = {
+    ["<Tab>"] = { ">", "Indent" },
+    ["<S-Tab>"] = { "<", "Un-indent" },
+  },
 }
 
-M.generalcustom = {
-  n = {
-    -- switch between windows
-    ["<leader>h"] = { "<C-w>h", "Window left" },
-    ["<leader>l"] = { "<C-w>l", "Window right" },
-    ["<leader>j"] = { "<C-w>j", "Window down" },
-    ["<leader>k"] = { "<C-w>k", "Window up" },
+M.terminal = {
+  t = {
+    ["<C-h>"] = { "<C-\\><C-N><C-w>h", "Terminal move left" },
+    ["<C-j>"] = { "<C-\\><C-N><C-w>j", "Terminal move down" },
+    ["<C-k>"] = { "<C-\\><C-N><C-w>k", "Terminal move up" },
+    ["<C-l>"] = { "<C-\\><C-N><C-w>l", "Terminal move right" }, -- uncomment if needed
+    ["jk"]     = { "<C-\\><C-N>", "Escape terminal mode" },
   },
 }
 
@@ -22,27 +34,6 @@ M.telescope = {
   n = {
     -- theme switcher
     ["<leader>tt"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
-  },
-}
-
-M.nvterm = {
-  plugin = true,
-
-  n = {
-    -- new
-    ["<leader>th"] = {
-      function()
-        require("nvterm.terminal").new "horizontal"
-      end,
-      "New horizontal term",
-    },
-
-    ["<leader>tv"] = {
-      function()
-        require("nvterm.terminal").new "vertical"
-      end,
-      "New vertical term",
-    },
   },
 }
 
