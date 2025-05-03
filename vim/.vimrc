@@ -1,9 +1,25 @@
-" Reference: https://github.com/HaoZeke/Dotfiles/blob/master/dotfiles/common/.vimrc
-" Also few mappings from : https://github.com/JJGO/dotfiles/blob/master/vim/.vimrc
+" By May 2025, it has been 2 years since I began using VIM.
+" this configuration has evolved through multiple iterations,
+" reflecting on other's vimrc, workflow requirement, personal taste
+" and pieces of legacy configs.
 
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-"set nocompatible
+" References were taken from:
+" - https://github.com/HaoZeke/Dotfiles/blob/master/dotfiles/common/.vimrc
+" few mappings from : https://github.com/JJGO/dotfiles/blob/master/vim/.vimrc
+" and many more
+
+" Other reference for using vim
+" - https://freshman.tech/vim-quickfix-and-location-list/
+" - https://vi.stackexchange.com/questions/14820/shortcut-to-open-definition-of-variable-in-a-vertical-split
+" - https://gist.github.com/mahemoff/8967b5de067cffc67cec174cb3a9f49d
+
+" My most favourite plugins: tpope/vim-fugitive and scrooloose/nerdtree
+" Favourite Themes: gruvbox, dracula and molokai
+" Most used mappings:
+" 1. jk mapped to <ESC>
+" 2. ; mapped to :
+" 3. Ctrl-N mapped to Nerdtree
+" 4. <space> x mapped to buffer close
 
 " ================ Plugins! ======================
 
@@ -12,24 +28,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-" function
-" function! BuildYCM(info)
-"   " info is a dictionary with 3 fields
-"   " - name:   name of the plugin
-"   " - status: 'installed', 'updated', or 'unchanged'
-"   " - force:  set on PlugInstall! or PlugUpdate!
-"   if a:info.status == 'installed' || a:info.force
-"     !python2 ./install.py
-"   endif
-" endfunction
+
     " :PlugInstall is required. Along with a source %
     " Initialize List of plugins...
 call plug#begin()
     " The basis."
     Plug 'tpope/vim-sensible'
 
-    " Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-    "{ 'for': 'cpp' } WASTE. Python2 ONLY
+  " YCM is not working for me
   "  Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } | Plug 'l3nkz/ycmtex' 
   "  autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -69,10 +75,6 @@ call plug#begin()
    "  " Less
     " Plug 'groenewege/vim-less' 
 
-    " Python
-    " Plug 'klen/python-mode'
-    " Plug 'jmcantrell/vim-virtualenv'  " This should fix the virtualenvs.
-
     " Movement
     Plug 'matze/vim-move'
     
@@ -92,13 +94,13 @@ call plug#begin()
     Plug 'flazz/vim-colorschemes'
     Plug 'dracula/vim', { 'as': 'dracula' }
 
-    " File searching with faster matching
-    "Plug 'ctrlpvim/ctrlp.vim'
+    "File searching with faster matching
+    " Plug 'ctrlpvim/ctrlp.vim'
     " Plug 'FelikZ/ctrlp-py-matcher'
 
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-
+    Plug '~/.fzf'
 
    "  " Respect Common Editorconfig stuff
    "  " Plug 'editorconfig/editorconfig-vim'
@@ -131,11 +133,16 @@ call plug#begin()
     " Diff
     Plug 'will133/vim-dirdiff'
 
+    " Hyperfocus
+    Plug 'junegunn/limelight.vim'
+
+    " Zoom
+    Plug 'vim-scripts/ZoomWin'
+
 call plug#end()
 call plug#helptags()
 if !has('g:syntax_on')|syntax enable|endif
-filetype plugin indent on
-
+filetype plugin on
 filetype indent on
 " Behold paste indenting!
 set pastetoggle=<F2>
@@ -170,6 +177,11 @@ let &t_EI = "\e[2 q"
 let &t_SI = "\e[6 q"
 set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
 set splitbelow          " This will cause all splits to happen below (including terminal).
+set splitright
+set tags+=~/.vim/tags/ucrt_tags
+set tags+=~/.vim/tags/vector_tags
+set tags+=/d/PROJECTS/mpbu/third_party/raylib/tags
+set rtp+=~/.fzf
 
 " " ================ Mappings ======================
 " " Probably NOT a good idea
@@ -184,7 +196,7 @@ let mapleader=" "
 " let maplocalleader = "\\"
 map <leader>n :new<cr>
 map <leader>i I
-map <leader><c-p> :CtrlPBookmarkDir<CR>
+"map <leader><c-p> :CtrlPBookmarkDir<CR>
 "map <c-b> :CtrlPBuffer<CR>
 "map <c-s> :CtrlPMRUFiles<CR>
 
@@ -220,6 +232,13 @@ tnoremap jk <C-W>N
 nmap <Leader>fn :let @* = expand("%")<CR>
 nmap <Leader>fp :let @* = expand("%:p")<CR>
 
+" Open tag in vsplit
+" nnoremap <C-]> :vert winc ]<CR>
+
+" For some reason enter is mapped to comment so undoing it.
+" default behavior of enter (<CR>) is same as + (Move down one line, to first non-blank character)
+" nnoremap <CR> +
+
 " ================ Indentation ======================
 
 " set autoindent "Set in vim-sensible
@@ -248,6 +267,7 @@ vnoremap <Space> zf
 colorscheme gruvbox
 " other good ones: gruvbox, default, moonshine, emacs, materialbox, space-vim, molokai, dracula
 set background=dark
+let g:limelight_conceal_ctermfg = 'LightGray'
 
 " ================ Searches ============================
 set incsearch      " do incremental searching
@@ -294,8 +314,13 @@ map <C-f> :Files<CR>
 map <C-b> :Buffers<CR>
 map <C-p> :History<CR>
 
+if filereadable(expand("~/.dotfiles/vim/fzf-keybinds.vim"))
+    source ~/.dotfiles/vim/fzf-keybinds.vim
+endif
+
+
 " Easy Motion
-" keep cursor colum JK motion
+ "keep cursor colum JK motion
 let g:EasyMotion_startofline = 0 
 map <Leader>J <Plug>(easymotion-sol-j)
 map <Leader>K <Plug>(easymotion-sol-k)
@@ -310,9 +335,8 @@ nnoremap <Leader>g :ter <C-r>=&buftype == 'terminal'
             \ && job_info(term_getjob('%')).cmd[0] ==? 'git' ? '++curwin ' : ''
             \ <CR>git --no-pager<Space>
 
-" COmmenting
-vmap <C-m> <plug>NERDCommenterToggle
-nmap <C-m> <plug>NERDCommenterToggle
+" Commenting
+let g:NERDCreateDefaultMappings = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '// ','right': '' } }
 
 " " Vim Airline Stuff
@@ -354,37 +378,7 @@ let g:airline#extensions#tabline#show_tabs = 1         " enable/disable displayi
 let g:airline#extensions#whitespace#enabled = 0          " disable message regarding whitespaces:
 " let g:airline_section_y = ''
 
-" " Promptline Stuff
-" " sections (a, b, c, x, y, z, warn) are optional
-" let g:promptline_preset = {
-"         \'a' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
-"         \'b' : [ promptline#slices#user(), promptline#slices#python_virtualenv() ],
-"         \'c' : [ promptline#slices#cwd() ],
-"         \'y' : [ promptline#slices#vcs_branch() ],
-"         \'warn' : [ promptline#slices#last_exit_code() ]}
-"
-" " available slices:
-" "
-" " promptline#slices#cwd() - current dir, truncated to 3 dirs. To configure: promptline#slices#cwd({ 'dir_limit': 4 })
-" " promptline#slices#vcs_branch() - branch name only. By default, only git branch is enabled. Use promptline#slices#vcs_branch({ 'hg': 1, 'svn': 1, 'fossil': 1}) to enable check for svn, mercurial and fossil branches. Note that always checking if inside a branch slows down the prompt
-" " promptline#slices#last_exit_code() - display exit code of last command if not zero
-" " promptline#slices#jobs() - display number of shell jobs if more than zero
-" " promptline#slices#battery() - display battery percentage (on OSX and linux) only if below 10%. Configure the threshold with promptline#slices#battery({ 'threshold': 25 })
-" " promptline#slices#host() - current hostname.  To hide the hostname unless connected via SSH, use promptline#slices#host({ 'only_if_ssh': 1 })
-" " promptline#slices#user()
-" " promptline#slices#python_virtualenv() - display which virtual env is active (empty is none)
-" " promptline#slices#git_status() - count of commits ahead/behind upstream, count of modified/added/unmerged files, symbol for clean branch and symbol for existing untraced files
-" "
-" " any command can be used in a slice, for example to print the output of whoami in section 'b':
-" "       \'b' : [ '$(whoami)'],
-" "
-" " more than one slice can be placed in a section, e.g. print both host and user in section 'a':
-" "       \'a': [ promptline#slices#host(), promptline#slices#user() ],
-" "
-" " to disable powerline symbols
-" " `let g:promptline_powerline_symbols = 0`
-"
-"
+
 " Automatically load .vimrc source when saved
 autocmd BufWritePost .vimrc source ~/.vimrc
 
@@ -395,30 +389,6 @@ if has("autocmd")
  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
  \| exe "normal! g'\"" | endif
 endif
-
-" " Alternative to statusline: Ruler
-" set ruler
-" let &rulerformat = '%50(b%n %{&ff} %{&ft}' .
-"             \ '%( %{len(getqflist()) ? ("q" . len(getqflist())) : ""}%)' .
-"             \ '%( %{search("\\s$", "cnw", 0, 200) ? "∙$" : ""}%)' .
-"             \ '%( %{exists("b:stl_fn") ? call(b:stl_fn) : ""}%)' .
-"             \ '%= L%l,%c%V %P %*%)'
-
-
-" " nnoremap <C-S-u>  :GundoToggle<CR>
-" nnoremap <C-S-u>  :UndotreeToggle<CR>
-
-" Syntastic Defaults
- "set statusline+=%#warningmsg#
- "set statusline+=%{SyntasticStatuslineFlag()}
- "set statusline+=%*
-
- "let g:syntastic_always_populate_loc_list = 1
- "let g:syntastic_auto_loc_list = 1
- "let g:syntastic_check_on_open = 1
- "let g:syntastic_check_on_wq = 0
- "let g:syntastic_tex_chktex_showmsgs = 0
- "let g:syntastic_tex_checkers=['chktex'] 
 
 " NERDtree Key bound to Ctrl+n
 map <C-n> :NERDTreeToggle<CR>
