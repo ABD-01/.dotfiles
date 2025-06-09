@@ -7,6 +7,7 @@ alias tcuev='cd D:/PROJECTS/atcu-ev/'
 alias ucan='cd D:/PROJECTS/can-utility/'
 alias rp='cd D:/Renesas_PROJECTS'
 alias smp='cd D:/PROJECTS/sampark'
+alias a2t='cd D:/PROJECTS/a2t-scv-base'
 
 alias npp='C:/Program\ Files/Notepad++/notepad++.exe'
 
@@ -31,6 +32,5 @@ CLEANDEBUG()
   rm -rf $WORKSPACE_PATH/ATCU/Debug_APP/
 }
 alias make='/c/msys64/usr/bin/make.exe'
-alias clang='/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/Llvm/bin/clang.exe'
 alias ucrt='/c/msys64/msys2_shell.cmd -here -no-start -defterm -ucrt64 -use-full-path'
 alias vact='source ~/.virtualenvs/ATCU_Workspace-VdKM886n/Scripts/activate'

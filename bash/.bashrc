@@ -1,8 +1,9 @@
-eval "$(oh-my-posh init bash --config C:/Users/Muhammed/AppData/Local/Programs/oh-my-posh/themes/di4am0nd.omp.json)"
-# eval "$(oh-my-posh init bash --config C:/Users/Muhammed/AppData/Local/Programs/oh-my-posh/themes/microverse-power.omp.json)"
-# eval "$(oh-my-posh init bash --config C:/Users/Muhammed/AppData/Local/Programs/oh-my-posh/themes/nordtron.omp.json)"
-export PYTHONIOENCODING="utf-8"
-eval "$(thefuck --alias)"
+eval "$(oh-my-posh init bash --config /c/Users/Abdullah/.dotfiles/bash/microverse-power-custom.omp.json)"
+# eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/di4am0nd.omp.json)"
+# eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/microverse-power.omp.json)"
+# eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/nordtron.omp.json)"
+# export PYTHONIOENCODING="utf-8"
+# eval "$(thefuck --alias)"
 
 # Aliases
 alias cst='clear;git status'
