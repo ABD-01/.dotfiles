@@ -20,6 +20,11 @@ mklink C:\Users\<Username>\.gitconfig C:\Users\<Username>\.dotfiles\git\.gitconf
 ```
 mklink C:\Users\<Username>\.vimrc C:\Users\<Username>\.dotfiles\vim\.vimrc
 ```
+or
+
+```
+mklink C:\Users\<Username>\.vimrc C:\Users\<Username>\.dotfiles\vim\.min.vimrc
+```
 
 4. VsCode
 ```
@@ -35,5 +40,14 @@ mklink "C:\Users\<Username>\AppData\Local\Packages\Microsoft.WindowsTerminal_8we
 
 6. NVim
 ```
-mklink C:\Users\<Username>\AppData\Local\nvim C:\Users\<Username>\.dotfiles\nvim
+mklink /D C:\Users\<Username>\AppData\Local\nvim C:\Users\<Username>\.dotfiles\nvim
+```
+7. Wezterm
+```
+mklink C:\Users\<Username>\.wezterm.lua C:\Users\<Username>\.dotfiles\wezterm\.wezterm.lua
+```
+
+8. .clang-format
+```
+mklink C:\Users\UsernameAbdullah\.clang-format C:\Users\<Username>\.dotfiles\utils\.clang-format
 ```
