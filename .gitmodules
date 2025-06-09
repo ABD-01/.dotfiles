@@ -1,3 +1,0 @@
-[submodule "nvim/pack/Exafunction/start/codeium.vim"]
-	path = nvim/pack/Exafunction/start/codeium.vim
-	url = https://github.com/Exafunction/codeium.vim
