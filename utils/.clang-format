@@ -1,6 +1,6 @@
 BasedOnStyle: LLVM
 
-ColumnLimit:     100
+ColumnLimit:     120
 IndentWidth:     4
 TabWidth:        4
 
@@ -13,3 +13,6 @@ AlwaysBreakTemplateDeclarations: Yes
 
 AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveMacros:
+  Enabled: true
+  PadOperators: true
