@@ -1,0 +1,83 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#FFFFFF",
+          "style": "plain",
+          "template": "<#0377C8># </><#0377C8>ABD</> <#ffffff>in</>",
+          "type": "session"
+        },
+        {
+          "foreground": "#4A9207",
+          "properties": {
+            "folder_icon": "\uf115",
+            "folder_separator_icon": " \ue0b1 ",
+            "max_depth": 2,
+            "style": "agnoster_short"
+          },
+          "style": "plain",
+          "template": " {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "foreground": "#B8B80A",
+          "style": "plain",
+          "template": "<#ffffff>on git:</>{{ .HEAD }} ",
+          "type": "git"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "properties": {
+            "time_format": "<#79DFE1>\ue641 15:04</> | <#79DFE1>\uf073 2 Jan, Monday</>"
+          },
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "[{{ .CurrentDate | date .Format }}]",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#CECE04",
+          "style": "plain",
+          "template": "\uf0e7 ",
+          "type": "root"
+        },
+        {
+          "foreground": "#100e23",
+          "style": "plain",
+          "template": "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
+          "type": "python"
+        },
+        {
+          "foreground": "#CB4B16",
+          "style": "plain",
+          "template": " {{ reason .Code }} ",
+          "type": "status"
+        },
+        {
+          "foreground": "#CC4B16",
+          "style": "plain",
+          "template": "\u279c ",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "version": 3
+}

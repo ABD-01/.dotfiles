@@ -1,9 +1,9 @@
 [
-    // {
-    //     "key": "space n",
-    //     "command": "workbench.action.toggleSidebarVisibility",
-    //     "when": "listFocus && !inputFocus"
-    // },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.toggleSidebarVisibility",
+        // "when": "listFocus && !inputFocus"
+    },
     {
         "key": "ctrl+e",
         "command": "workbench.files.action.focusFilesExplorer",

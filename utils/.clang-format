@@ -11,8 +11,13 @@ AllowShortIfStatementsOnASingleLine: WithoutElse
 
 AlwaysBreakTemplateDeclarations: Yes
 
-AlignConsecutiveAssignments: Consecutive
-AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveAssignments:
+  Enabled: true
+  AlignFunctionDeclarations: true
+AlignConsecutiveDeclarations: true
 AlignConsecutiveMacros:
   Enabled: true
   PadOperators: true
+
+PointerAlignment: Left
+QualifierAlignment: Right

@@ -4,6 +4,7 @@
 [alias]
     s = status -sb
 	a = add .
+	psuh = push
 	cm = commit -m
 	compty = commit -m '' --allow-empty-message
 	mom = merge origin master
@@ -28,7 +29,7 @@
 [merge]
 	tool = bc4
 [mergetool "bc4"]
-	path = C:/Program Files/Beyond Compare 4/BCompare.exe
+	path = C:/Program Files/Beyond Compare 5/BCompare.exe
 [rerere]
 	enabled = true
 [column]
@@ -39,3 +40,22 @@
     auto = False
     strategy = incremental
 	repo = D:/PROJECTS/falcon
+[core]
+	pager = ~/diff-so-fancy | less --tabs=4 -RF
+[interactive]
+	diffFilter = ~/diff-so-fancy --patch
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

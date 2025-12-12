@@ -19,15 +19,14 @@ local plugins = {
 
   -- Colorscheme
   { "ellisonleao/gruvbox.nvim" },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "joshdick/onedark.vim" },
+  { "rose-pine/neovim" },
 
   -- Nerdcommenter alternative
   { "numToStr/Comment.nvim" },
 
-  -- AnyJump alternative
-  { "pechorin/any-jump.vim" },
-
-  -- ctags
-  { "wsdjeg/ctags.nvim" },
+  { "eandrju/cellular-automaton.nvim" },
 }
 
 -- ============== Setup lazy.nvim ==================
@@ -44,18 +43,18 @@ require("lazy").setup(plugins)
 
 -- =================== Plugin Configs ====================
 
--- Gruvbox Theme
 vim.cmd("colorscheme gruvbox")
 vim.opt.background = "dark"
 
 -- Telescope Setup
-require("telescope").setup({
-  defaults = {
-    vimgrep_arguments = {
-      'ag', '--nocolor', '--nogroup', '--column'
-    },
-  },
-})
+require("telescope").setup()
+-- require("telescope").setup({
+--   defaults = {
+--     vimgrep_arguments = {
+--       'rg', '--nocolor', '--nogroup', '--column'
+--     },
+--   },
+-- })
 
 -- File Tree Setup
 require("nvim-tree").setup()
@@ -66,25 +65,42 @@ require("lualine").setup()
 -- Comment.nvim
 require("Comment").setup()
 
+
+require("catppuccin").setup({
+  transparent_background=true,
+})
+
+require("rose-pine").setup({
+  styles = { transparency = true, },
+})
+
 -- =============== LSP + Autocompletion ===================
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local on_attach = function(_, bufnr)
+  local opts = { buffer = bufnr }
+  local km = vim.keymap
+  km.set("n", "gd", vim.lsp.buf.definition, opts)
+  km.set("n", "gD", vim.lsp.buf.declaration, opts)
+  km.set("n", "gi", vim.lsp.buf.implementation, opts)
+  km.set("n", "gr", vim.lsp.buf.references, opts)
+  km.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  km.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+  km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts)
+  km.set("n", "K", vim.lsp.buf.hover, opts)
+end
+
 lspconfig.clangd.setup({
   cmd = {
     "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe"
   },
   capabilities = capabilities,
-  on_attach = function(_, bufnr)
-    local opts = { buffer = bufnr }
-    local km = vim.keymap
-    km.set("n", "gd", vim.lsp.buf.definition, {})
-    km.set("n", "gD", vim.lsp.buf.declaration, {})
-    km.set("n", "gi", vim.lsp.buf.implementation, {})
-    km.set("n", "gr", vim.lsp.buf.references, {})
-    km.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    km.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts)
-  end,
+  on_attach = on_attach,
+})
+lspconfig.cmake.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
 })
 
 local cmp = require("cmp")
@@ -129,7 +145,9 @@ opt.backspace = { "indent", "eol", "start" }
 opt.showmatch = true
 opt.history = 1000
 opt.undolevels = 1000
-opt.grepprg = "ag"
+opt.scrolloff = 8
+opt.grepprg = "rg --vimgrep --no-heading"
+opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"

@@ -38,6 +38,9 @@ local mappings = {
     -- LSP and Help
     ["<leader>ld"] = { ":Telescope diagnostics<CR>", "LSP Diagnostics" },
     ["<leader>lh"] = { ":Telescope help_tags<CR>", "Search help tags" },
+
+    -- FML
+    ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" }, 
   },
 
   i = {

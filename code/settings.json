@@ -1,6 +1,11 @@
 {
-    "tabnine.experimentalAutoImports": true,
-    "workbench.colorTheme": "Dark Material Dracula",
+    "telemetry.feedback.enabled": false,
+    "telemetry.telemetryLevel": "off",
+    "remote.SSH.remotePlatform": {
+        "ubuntu": "linux"
+    },
+
+    "workbench.colorTheme": "Gruvbox Dark Anhoder",
 
     "vim.leader": " ",
     "vim.hlsearch": true,
@@ -159,5 +164,23 @@
         "editor.wordBasedSuggestions": "off",
         "editor.suggest.insertMode": "replace",
         "editor.semanticHighlighting.enabled": true
-    }
+    },
+    "terminal.external.windowsExec": "C:/Program Files/Git/bin/bash.exe -i -l",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "cortex-debug.liveWatchRefreshRate": 300,
+    "cortex-debug.armToolchainPath": "C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin",
+    "cortex-debug.objdumpPath": "C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/arm-none-eabi-objdump.exe",
+    "cortex-debug.nmPath": "C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/arm-none-eabi-nm.exe",
+    "C_Cpp.clang_format_style": "file:C:\\Users\\Abdullah\\.clang-format",
+    "idf.hasWalkthroughBeenShown": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "c": true,
+        "yaml": true
+    },
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1"
 }

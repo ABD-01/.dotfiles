@@ -46,7 +46,7 @@ call plug#begin()
     "Plug 'unkiwii/vim-nerdtree-sync'  " to sync the current file
 
     " Because everything must be tracked
-    Plug 'wakatime/vim-wakatime'
+    " Plug 'wakatime/vim-wakatime'
 
     " Easy motions.
     Plug 'Lokaltog/vim-easymotion'
@@ -70,7 +70,10 @@ call plug#begin()
     " Plug 'weynhamz/vim-plugin-minibufexpl'
 
     " Julia
-    Plug 'JuliaLang/julia-vim'
+    " Plug 'JuliaLang/julia-vim'
+
+    " Rust
+    Plug 'rust-lang/rust.vim'
 
    "  " Less
     " Plug 'groenewege/vim-less' 
@@ -122,13 +125,14 @@ call plug#begin()
    "  Plug 'edkolev/tmuxline.vim'
 
     " Pretty
-    Plug 'ryanoasis/vim-devicons'
+    " Plug 'ryanoasis/vim-devicons'
 
     " Codeium
-    Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+    " Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
     " Any Jump
-    Plug 'pechorin/any-jump.vim'
+    " Plug 'pechorin/any-jump.vim'
+    Plug 'ABD-01/any-jump.vim'
 
     " Diff
     Plug 'will133/vim-dirdiff'
@@ -151,6 +155,10 @@ set mouse+=a
 syntax on
 " setlocal spell spelllang=en_us
 set grepprg=grep\ -nH\ $*
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 set showcmd        " display incomplete commands
 "set autoread       " reload files (no local changes only)
 set laststatus=2    " Always display the statusline in all windows
@@ -178,6 +186,13 @@ let &t_SI = "\e[6 q"
 set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
 set splitbelow          " This will cause all splits to happen below (including terminal).
 set splitright
+set scrolloff=8
+
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 set tags+=~/.vim/tags/ucrt_tags
 set tags+=~/.vim/tags/vector_tags
 set tags+=/d/PROJECTS/mpbu/third_party/raylib/tags
@@ -233,11 +248,26 @@ nmap <Leader>fn :let @* = expand("%")<CR>
 nmap <Leader>fp :let @* = expand("%:p")<CR>
 
 " Open tag in vsplit
-" nnoremap <C-]> :vert winc ]<CR>
+nnoremap <C-]> :vert winc ]<CR>
 
 " For some reason enter is mapped to comment so undoing it.
 " default behavior of enter (<CR>) is same as + (Move down one line, to first non-blank character)
 " nnoremap <CR> +
+
+" for vim-move
+vmap <C-j> <Plug>MoveBlockDown
+vmap <C-k> <Plug>MoveBlockUp
+vmap <C-h> <Plug>MoveBlockLeft
+vmap <C-l> <Plug>MoveBlockRight
+
+
+" set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
+                        " ref: https://stackoverflow.com/a/71592986
+
+augroup QuickfixSplit
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
+augroup END
 
 " ================ Indentation ======================
 
@@ -349,6 +379,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 " set laststatus=2 		"Show statusbar always.
 let g:airline_powerline_fonts = 1
 let g:airline_theme='base16_gruvbox_dark_hard' " others: dark, term, base16_monokai, base16_twilight
+"let g:airline_theme='base16_nord'
 let g:airline#extensions#tabline#buffer_nr_show = 0   " configure whether buffer numbers should be shown.
 let g:airline#extensions#tabline#show_tab_nr = 1      " enable/disable displaying tab number in tabs mode. 
 nmap <leader>1 <Plug>AirlineSelectTab1

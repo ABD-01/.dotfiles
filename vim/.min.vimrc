@@ -14,17 +14,20 @@ call plug#begin()
     Plug 'scrooloose/nerdtree'
 
     " Why we theme
-    " Plug 'flazz/vim-colorschemes'
+    Plug 'flazz/vim-colorschemes'
     Plug 'morhetz/gruvbox'
 
     " Fuzzy Finder
     Plug '~/.fzf'
 
     " Any Jump
-    Plug 'pechorin/any-jump.vim'
+    Plug 'ABD-01/any-jump.vim'
 
     " Super easy commenting, toggle comments etc
     Plug 'scrooloose/nerdcommenter'
+
+    " Git wrapper inside Vim
+    Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -34,10 +37,6 @@ set noswapfile     "no swap files
 set t_vb=
 set number         "Show line numbers              
 syntax on
-set grepprg=ag
-
-set shiftwidth=4 smarttab
-set expandtab
 
 set showmatch      "automatically highlight matching braces/brackets/etc.
 set history=1000         " remember more commands and search history
@@ -47,12 +46,21 @@ let &t_EI = "\e[2 q"
 let &t_SI = "\e[6 q"
 set splitbelow          " This will cause all splits to happen below (including terminal).
 set splitright
-
+set scrolloff=8
 set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
 
 set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
                         " ref: https://stackoverflow.com/a/71592986
 
+augroup QuickfixSplit
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
+augroup END
+
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 set rtp+=~/.fzf
 
 " ================ Mappings ======================
@@ -148,7 +156,7 @@ set smartcase       " ...unless we type a capital
 
 
 " anyjump
-let g:any_jump_search_prefered_engine = 'ag'
+let g:any_jump_search_prefered_engine = 'rg'
 
 " Commenting
 let g:NERDCreateDefaultMappings = 1
