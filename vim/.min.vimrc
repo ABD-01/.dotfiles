@@ -29,6 +29,16 @@ call plug#begin()
     " Git wrapper inside Vim
     Plug 'tpope/vim-fugitive'
 
+    " Protobuf support
+    Plug 'uarun/vim-protobuf'
+
+    " Multi cursor
+    Plug 'mg979/vim-visual-multi'
+
+    " LSP
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+
 call plug#end()
 
 " ================ Settings ======================
@@ -161,3 +171,69 @@ let g:any_jump_search_prefered_engine = 'rg'
 " Commenting
 let g:NERDCreateDefaultMappings = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '// ','right': '' } }
+
+" ================ Multi Cursor ============================
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-x>'   " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-x>'   " replace visual C-n
+
+" ================ Multi Cursor ============================
+
+
+" Path to clangd
+let g:clangd = 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe'
+
+" Register clangd if executable exists
+if filereadable(g:clangd)
+  augroup lsp_clangd
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'clangd',
+          \ 'cmd': {-> [g:clangd, '--background-index']},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+          \ })
+
+        " Set omnifunc for LSP completion
+        autocmd FileType c,cpp,objc,objcpp setlocal omnifunc=lsp#complete
+    augroup END
+endif
+
+" Buffer-local mappings and settings
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+
+    " Navigation
+    nnoremap <buffer> gd <plug>(lsp-definition)
+    nnoremap <buffer> gD <plug>(lsp-declaration)
+    nnoremap <buffer> gi <plug>(lsp-implementation)
+    nnoremap <buffer> gr <plug>(lsp-references)
+    nnoremap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nnoremap <buffer> gs <plug>(lsp-document-symbol-search)
+
+    " Actions
+    nnoremap <buffer> <leader>fm :LspDocumentFormat<CR>
+    nnoremap <buffer> <leader>rn <plug>(lsp-rename)
+    nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
+    nnoremap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
+
+    " Scroll hover info
+    nnoremap <buffer> <expr> <leader>j lsp#scroll(+4)
+    nnoremap <buffer> <expr> <leader>k lsp#scroll(-4)
+
+    " Formatting on save (adjust filetypes as needed)
+    " let g:lsp_format_sync_timeout = 1000
+    " autocmd! BufWritePre *.c,*.cpp call execute('LspDocumentFormatSync')
+endfunction
+
+" Attach mappings when buffer gets an LSP server
+augroup lsp_clangd_maps
+    autocmd!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+" let g:lsp_diagnostics_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_highlights_enabled = 0
