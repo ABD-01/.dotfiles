@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "components": [
+    "Microsoft.VisualStudio.Component.Roslyn.Compiler",
+    "Microsoft.Component.MSBuild",
+    "Microsoft.VisualStudio.Component.CoreBuildTools",
+    "Microsoft.VisualStudio.Workload.MSBuildTools",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.VC.Llvm.ClangToolset",
+    "Microsoft.VisualStudio.Component.VC.Llvm.Clang",
+    "Microsoft.VisualStudio.Component.Windows10SDK.20348",
+    "Microsoft.VisualStudio.Component.VC.14.29.16.11.x86.x64",
+    "Microsoft.VisualStudio.Component.VC.14.29.16.11.x86.x64.Spectre"
+  ],
+  "extensions": []
+}
