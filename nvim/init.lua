@@ -89,6 +89,10 @@ local on_attach = function(_, bufnr)
   km.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
   km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts)
   km.set("n", "K", vim.lsp.buf.hover, opts)
+
+  km.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+  km.set("n", "[d", vim.diagnostic.goto_prev, opts)
+  km.set("n", "]d", vim.diagnostic.goto_next, opts)
 end
 
 lspconfig.clangd.setup({
@@ -101,6 +105,21 @@ lspconfig.clangd.setup({
 lspconfig.cmake.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+})
+-- Add rust-analyzer
+lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true,
+      },
+      check = {
+        command = "clippy",
+      },
+    },
+  },
 })
 
 local cmp = require("cmp")

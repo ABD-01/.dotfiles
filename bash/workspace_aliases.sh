@@ -34,3 +34,11 @@ CLEANDEBUG()
 alias make='/c/CSDTK4/make64/make.exe'
 alias ucrt='/c/msys64/msys2_shell.cmd -here -no-start -defterm -ucrt64 -use-full-path'
 alias vact='source ~/.virtualenvs/ATCU_Workspace-VdKM886n/Scripts/activate'
+
+alias gfb='git branch -a | grep -v remotes | grep $1'
+alias gcb='git checkout $(git branch -a | grep -v remotes | fzf)'
+
+
+export ANDROID_HOME=/d/android_sdk/
+export JAVA_HOME=/c/Users/Abdullah/AppData/Local/Programs/STM32CubeMX/jre
+export PATH=$JAVA_HOME/bin:$PATH

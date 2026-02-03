@@ -26,6 +26,9 @@ set(CMAKE_STRIP     "${LLVM_BIN}/llvm-strip.exe")
 set(CMAKE_C_FLAGS_INIT   "-Wall -Wextra -Wpedantic")
 set(CMAKE_CXX_FLAGS_INIT "-Wall -Wextra -Wpedantic")
 
+set(CMAKE_C_FLAGS_RELEASE   "-O3 -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+
 # Ensure flags are not overridden by CMake
 set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
 

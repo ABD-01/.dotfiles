@@ -35,9 +35,15 @@ call plug#begin()
     " Multi cursor
     Plug 'mg979/vim-visual-multi'
 
+    " Rust
+    Plug 'rust-lang/rust.vim'
+
     " LSP
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'mattn/vim-lsp-settings'
 
 call plug#end()
 
@@ -198,6 +204,23 @@ if filereadable(g:clangd)
     augroup END
 endif
 
+" Register rust-analyzer
+if executable('rust-analyzer')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
+        \ 'allowlist': ['rust'],
+        \ 'initialization_options': {
+        \   'cargo': {
+        \     'allFeatures': v:true,
+        \   },
+        \   'check': {
+        \     'command': 'clippy',
+        \   },
+        \ },
+        \ })
+endif
+
 " Buffer-local mappings and settings
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -217,8 +240,9 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <leader>rn <plug>(lsp-rename)
     nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
     nnoremap <buffer> K <plug>(lsp-hover)
-    nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nnoremap <buffer> <leader>e <plug>(lsp-document-diagnostics)
+    nnoremap <buffer> [d <plug>(lsp-previous-diagnostic)
+    nnoremap <buffer> ]d <plug>(lsp-next-diagnostic)
 
     " Scroll hover info
     nnoremap <buffer> <expr> <leader>j lsp#scroll(+4)
@@ -230,10 +254,33 @@ function! s:on_lsp_buffer_enabled() abort
 endfunction
 
 " Attach mappings when buffer gets an LSP server
-augroup lsp_clangd_maps
+augroup lsp_install
     autocmd!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-" let g:lsp_diagnostics_enabled = 0
+
+let g:asyncomplete_auto_popup = 1
+" =============== LSP UI Settings ===================
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_highlights_enabled = 0
+
+" Show diagnostics in virtual text
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
+" let g:lsp_diagnostics_virtual_text_enabled = 1
+
+" Diagnostic signs
+let g:lsp_diagnostics_signs_error = {'text': '✗'}
+let g:lsp_diagnostics_signs_warning = {'text': '⚠'}
+let g:lsp_diagnostics_signs_hint = {'text': '➤'}
+let g:lsp_diagnostics_signs_information = {'text': 'ℹ'}
+
+" Enable hover preview window
+let g:lsp_hover_ui = 'float'
+let g:lsp_preview_float = 1
+
+" Enable code lens
+let g:lsp_code_action_ui = 'float'
+
