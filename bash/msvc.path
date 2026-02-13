@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# dirty workaround because vcvarsall.bat could be run from git bash
-
-export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64:/c/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64:/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64:/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/Common7/Tools:/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin:$PATH"
-
-export CC=clang
-export CXX=clang++

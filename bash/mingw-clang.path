@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export PATH="/d/PROJECTS/ATP/toolchains/default/llvm-mingw-20230614-msvcrt-x86_64/bin:$PATH"
+
+export CC=clang
+export CXX=clang++
+
+export CMAKE_MAKE_PROGRAM='/d/PROJECTS/ATP/toolchains/default/llvm-mingw-20230614-msvcrt-x86_64/bin/mingw32-make.exe'
+export CMAKE_TOOLCHAIN_FILE='/d/PROJECTS/ATP/toolchains/default/default_toolchain.cmake'
+alias make='/d/PROJECTS/ATP/toolchains/default/llvm-mingw-20230614-msvcrt-x86_64/bin/mingw32-make.exe'
