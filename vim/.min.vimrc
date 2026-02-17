@@ -13,6 +13,9 @@ call plug#begin()
     " NERD tree will be loaded on the first invocation of NERDTreeToggle command
     Plug 'scrooloose/nerdtree'
 
+    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
     " Why we theme
     Plug 'flazz/vim-colorschemes'
     Plug 'morhetz/gruvbox'
@@ -68,10 +71,10 @@ set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref:
 set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
                         " ref: https://stackoverflow.com/a/71592986
 
-augroup QuickfixSplit
-  autocmd!
-  autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
-augroup END
+" augroup QuickfixSplit
+"   autocmd!
+"   autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
+" augroup END
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
@@ -170,6 +173,10 @@ set hlsearch        " Highlight searches by default
 set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 
+" ================ Nerd Tree ============================
+let g:NERDTreeMinimalUI  = 1
+let g:NERDTreeQuitOnOpen = 1
+
 
 " anyjump
 let g:any_jump_search_prefered_engine = 'rg'
@@ -183,8 +190,7 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-x>'   " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-x>'   " replace visual C-n
 
-" ================ Multi Cursor ============================
-
+" ================ LSP ============================
 
 " Path to clangd
 let g:clangd = 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe'
@@ -284,3 +290,44 @@ let g:lsp_preview_float = 1
 " Enable code lens
 let g:lsp_code_action_ui = 'float'
 
+
+" ================ Airline Stuff ============================
+" Use the airline thing anyway.
+" let g:miniBufExplAutoStart = 0
+let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:tmuxline_theme = 'powerline'
+" set laststatus=2 		"Show statusbar always.
+let g:airline_powerline_fonts = 1
+let g:airline_theme='base16_gruvbox_dark_hard' " others: dark, term, base16_monokai, base16_twilight
+"let g:airline_theme='base16_nord'
+let g:airline#extensions#tabline#buffer_nr_show = 0   " configure whether buffer numbers should be shown.
+" let g:airline#extensions#tabline#show_tab_nr = 1      " enable/disable displaying tab number in tabs mode. 
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+
+" "TABLINE:                                                                                                                                 
+" " Ref: https://www.reddit.com/r/vim/comments/crs61u/best_airline_settings/                                                                                                                     
+let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline                                            
+let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)      
+let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab                                                    
+let g:airline#extensions#tabline#show_tab_count = 2    " dont show tab numbers on the right is less than 2 tabs                                                           
+let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline                                                 
+" let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline                                  
+let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline               
+let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers                                                              
+let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+let g:airline#extensions#nerdtree_statusline = 1       " disables separate statusline for NerdTree
+let g:airline#extensions#tabline#show_tabs = 1         " enable/disable displaying tabs, regardless of number. (c)          
+let g:airline#extensions#whitespace#enabled = 0          " disable message regarding whitespaces:
+let g:airline_section_y = '' " disable the unix or dos file type
+let g:airline_section_z = '𝓛𝓷 %l/%L 𝓒𝓸𝓵%c'
