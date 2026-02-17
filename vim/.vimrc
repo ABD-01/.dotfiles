@@ -35,158 +35,110 @@ call plug#begin()
     " The basis."
     Plug 'tpope/vim-sensible'
 
-  " YCM is not working for me
-  "  Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } | Plug 'l3nkz/ycmtex' 
-  "  autocmd! User YouCompleteMe call youcompleteme#Enable()
-
     " NERD tree will be loaded on the first invocation of NERDTreeToggle command
     Plug 'scrooloose/nerdtree'
     " Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     "Plug 'unkiwii/vim-nerdtree-sync'  " to sync the current file
 
-    " Because everything must be tracked
-    " Plug 'wakatime/vim-wakatime'
+    " Why we theme
+    " Plug 'tomasr/molokai'
+    Plug 'morhetz/gruvbox'
+    Plug 'flazz/vim-colorschemes'
 
+    " Git wrapper inside Vim
+    Plug 'tpope/vim-fugitive'
+
+    " Git Stuff
+    Plug 'airblade/vim-gitgutter'
+
+    " File searching with faster matching
+    " Plug 'ctrlpvim/ctrlp.vim'
+    " Plug 'FelikZ/ctrlp-py-matcher'
+
+    " Fuzzy Finder
+    Plug 'junegunn/fzf.vim'
+    Plug '~/.fzf'
+    
     " Easy motions.
     Plug 'Lokaltog/vim-easymotion'
+
+    " Not that powerline isn't perfect... right?
+    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
+    " Any Jump
+    " Plug 'pechorin/any-jump.vim'
+    Plug 'ABD-01/any-jump.vim'
+
+    " Multi cursor
+    Plug 'mg979/vim-visual-multi'
+
+    " Movement
+    Plug 'matze/vim-move'
 
     " Super easy commenting, toggle comments etc
     Plug 'scrooloose/nerdcommenter'
 
     " Autoclose (, " etc
     Plug 'Townk/vim-autoclose'
-
-    " Git wrapper inside Vim
-    Plug 'tpope/vim-fugitive'
-
-   "  " Handle surround chars like ''
+    
+    " Handle surround chars like ''
     Plug 'tpope/vim-surround'
 
-    " Align your = etc.
-    " Plug 'vim-scripts/Align'
-
-   "  " Better Minibuff Kinda Pointless?
+    " Better Minibuff Kinda Pointless?
     " Plug 'weynhamz/vim-plugin-minibufexpl'
 
-    " Julia
-    " Plug 'JuliaLang/julia-vim'
+    " Language Support
+    " Protobuf support
+    Plug 'uarun/vim-protobuf'
 
-    " Rust
+    " Rust support 
     Plug 'rust-lang/rust.vim'
-
-   "  " Less
-    " Plug 'groenewege/vim-less' 
-
-    " Movement
-    Plug 'matze/vim-move'
-    
-    " Git Stuff
-    Plug 'airblade/vim-gitgutter'
-
-    " Not that powerline isn't perfect... right?
-    Plug 'bling/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    " Undo tree
-    " Plug 'vim-scripts/Gundo'
-    " Plug 'mbbill/undotree' " Gundo not working
-
-
-    " Why we theme
-    " Plug 'tomasr/molokai'
-    Plug 'flazz/vim-colorschemes'
-    Plug 'dracula/vim', { 'as': 'dracula' }
-
-    "File searching with faster matching
-    " Plug 'ctrlpvim/ctrlp.vim'
-    " Plug 'FelikZ/ctrlp-py-matcher'
-
-    " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-    Plug '~/.fzf'
-
-   "  " Respect Common Editorconfig stuff
-   "  " Plug 'editorconfig/editorconfig-vim'
-   "  
-   "  " Markdown
-   "  "Plug 'tpope/vim-markdown'
-   "  "Plug 'godlygeek/tabular'
-   "  "Plug 'plasticboy/vim-markdown'
-   "   " Plug 'gabrielelana/vim-markdown'
-   "  
-   "  " Completion --> Obsoleted by YouCompleteMe
-   " " Plug 'othree/vim-autocomplpop'
-   " " Plug 'Shougo/neocomplete.vim'
-
-   "  " Tmux Love
-   "  Plug 'christoomey/vim-tmux-navigator'
-   "  Plug 'benmills/vimux'
-   "  " This in-case the status-bar gets too much..
-   "  Plug 'edkolev/tmuxline.vim'
 
     " Pretty
     " Plug 'ryanoasis/vim-devicons'
 
-    " Codeium
-    " Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-
-    " Any Jump
-    " Plug 'pechorin/any-jump.vim'
-    Plug 'ABD-01/any-jump.vim'
-
     " Diff
     Plug 'will133/vim-dirdiff'
-
-    " Hyperfocus
-    Plug 'junegunn/limelight.vim'
-
-    " Zoom
-    Plug 'vim-scripts/ZoomWin'
-
 call plug#end()
 call plug#helptags()
-if !has('g:syntax_on')|syntax enable|endif
-filetype plugin on
-filetype indent on
+
+" ================ Settings ======================
 " Behold paste indenting!
 set pastetoggle=<F2>
-" set showmode
 set mouse+=a
-syntax on
-" setlocal spell spelllang=en_us
-set grepprg=grep\ -nH\ $*
-if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-set showcmd        " display incomplete commands
-"set autoread       " reload files (no local changes only)
-set laststatus=2    " Always display the statusline in all windows
-set showtabline=2   " Always display the tabline, even if there is only one tab
-set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set t_Co=256                 " force vim to use 256 colors
 set number                  "Show line numbers              
-set hidden                  "Buffers can exist in the background without being in a window.
-"set nobackup       "no backup files
-"set nowritebackup  "only in case you don't want a backup file while editing
-set noswapfile     "no swap files
-" Too much ?
-"autocmd TextChanged,TextChangedI <buffer> silent write
-" set backupdir=~/.vim/VimExtras/VimBackups//,/tmp
-" set directory=~/.vim/VimExtras/VimSwap//,/tmp
+syntax on
 set showmatch      "automatically highlight matching braces/brackets/etc.
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
-" autocmd GUIEnter * set visualbell t_vb=
-set visualbell           " don't beep
-set t_vb=
-set noerrorbells         " don't beep
+
 let &t_EI = "\e[2 q"
 let &t_SI = "\e[6 q"
-set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
 set splitbelow          " This will cause all splits to happen below (including terminal).
 set splitright
 set scrolloff=8
+set whichwrap=<,>,h,l     " Cursor Movement in Vim when hit the end of line ref: https://vim.works/2019/03/03/cursor-movement-in-vim/
+
+set visualbell           " don't beep
+set t_vb=
+set noerrorbells         " don't beep
+
+set showcmd        " display incomplete commands
+set laststatus=2    " Always display the statusline in all windows
+set showtabline=2   " Always display the tabline, even if there is only one tab
+set t_Co=256                 " force vim to use 256 colors
+set hidden                  "Buffers can exist in the background without being in a window.
+set noswapfile     "no swap files
+
+set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
+                        " ref: https://stackoverflow.com/a/71592986
+
+augroup QuickfixSplit
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
+augroup END
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
@@ -236,6 +188,14 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" NERDtree Key bound to Ctrl+n
+map <C-n> :NERDTreeToggle<CR>
+map <leader>f :NERDTreeFind<CR>
+
+" copy file name
+nmap <Leader>fn :let @* = expand("%")<CR>
+nmap <Leader>fp :let @* = expand("%:p")<CR>
+
 " Terminal Shortcuts
 tmap <C-h> <C-w>h
 tmap <C-j> <C-w>j
@@ -243,9 +203,11 @@ tmap <C-k> <C-w>k
 "tmap <C-l> <C-w>l
 tnoremap jk <C-W>N
 
-" copy file name
-nmap <Leader>fn :let @* = expand("%")<CR>
-nmap <Leader>fp :let @* = expand("%:p")<CR>
+" for vim-move
+vmap <C-j> <Plug>MoveBlockDown
+vmap <C-k> <Plug>MoveBlockUp
+vmap <C-h> <Plug>MoveBlockLeft
+vmap <C-l> <Plug>MoveBlockRight
 
 " Open tag in vsplit
 nnoremap <C-]> :vert winc ]<CR>
@@ -254,20 +216,19 @@ nnoremap <C-]> :vert winc ]<CR>
 " default behavior of enter (<CR>) is same as + (Move down one line, to first non-blank character)
 " nnoremap <CR> +
 
-" for vim-move
-vmap <C-j> <Plug>MoveBlockDown
-vmap <C-k> <Plug>MoveBlockUp
-vmap <C-h> <Plug>MoveBlockLeft
-vmap <C-l> <Plug>MoveBlockRight
+" More Stuff
+" Vim jump to the last position when reopening a file
+if has("autocmd")
+ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+ \| exe "normal! g'\"" | endif
+endif
 
+" Easy Motion
+ "keep cursor colum JK motion
+let g:EasyMotion_startofline = 0 
+map <Leader>J <Plug>(easymotion-sol-j)
+map <Leader>K <Plug>(easymotion-sol-k)
 
-" set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
-                        " ref: https://stackoverflow.com/a/71592986
-
-augroup QuickfixSplit
-  autocmd!
-  autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
-augroup END
 
 " ================ Indentation ======================
 
@@ -297,7 +258,7 @@ vnoremap <Space> zf
 colorscheme gruvbox
 " other good ones: gruvbox, default, moonshine, emacs, materialbox, space-vim, molokai, dracula
 set background=dark
-let g:limelight_conceal_ctermfg = 'LightGray'
+hi Normal guibg=NONE ctermbg=NONE
 
 " ================ Searches ============================
 set incsearch      " do incremental searching
@@ -310,8 +271,8 @@ omap / <Plug>(easymotion-tn)
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
-" map  n <Plug>(easymotion-next)
-" map  N <Plug>(easymotion-prev)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
 " Removed it as it did not allow searching for * and #
 
 nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
@@ -348,14 +309,8 @@ if filereadable(expand("~/.dotfiles/vim/fzf-keybinds.vim"))
     source ~/.dotfiles/vim/fzf-keybinds.vim
 endif
 
-
-" Easy Motion
- "keep cursor colum JK motion
-let g:EasyMotion_startofline = 0 
-map <Leader>J <Plug>(easymotion-sol-j)
-map <Leader>K <Plug>(easymotion-sol-k)
-
-" Vim Move
+" anyjump
+let g:any_jump_search_prefered_engine = 'rg'
 
 "" GIT Stuff without plugin
 " Fugitive is nice but https://sharats.me/posts/automating-the-vim-workplace/ says it makes vim slow on windows
@@ -369,8 +324,9 @@ nnoremap <Leader>g :ter <C-r>=&buftype == 'terminal'
 let g:NERDCreateDefaultMappings = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '// ','right': '' } }
 
-" " Vim Airline Stuff
-" " Use the airline thing anyway.
+
+" ================ Airline Stuff ============================
+" Use the airline thing anyway.
 " let g:miniBufExplAutoStart = 0
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
@@ -381,7 +337,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='base16_gruvbox_dark_hard' " others: dark, term, base16_monokai, base16_twilight
 "let g:airline_theme='base16_nord'
 let g:airline#extensions#tabline#buffer_nr_show = 0   " configure whether buffer numbers should be shown.
-let g:airline#extensions#tabline#show_tab_nr = 1      " enable/disable displaying tab number in tabs mode. 
+" let g:airline#extensions#tabline#show_tab_nr = 1      " enable/disable displaying tab number in tabs mode. 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -407,23 +363,15 @@ let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird orna
 let g:airline#extensions#nerdtree_statusline = 1       " disables separate statusline for NerdTree
 let g:airline#extensions#tabline#show_tabs = 1         " enable/disable displaying tabs, regardless of number. (c)          
 let g:airline#extensions#whitespace#enabled = 0          " disable message regarding whitespaces:
-" let g:airline_section_y = ''
+let g:airline_section_y = '' " disable the unix or dos file type
+let g:airline_section_z = '𝓛𝓷 %l/%L 𝓒𝓸𝓵%c'
 
 
 " Automatically load .vimrc source when saved
-autocmd BufWritePost .vimrc source ~/.vimrc
+" autocmd BufWritePost .vimrc source ~/.vimrc
+autocmd BufWritePost .vimrc source /c/Users/Abdullah/.dotfiles/vim/.vimrc
 
 
-" More Stuff
-" Vim jump to the last position when reopening a file
-if has("autocmd")
- au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
- \| exe "normal! g'\"" | endif
-endif
-
-" NERDtree Key bound to Ctrl+n
-map <C-n> :NERDTreeToggle<CR>
-map <leader>f :NERDTreeFind<CR>
 
 " NERDtree FileType Highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
@@ -471,7 +419,7 @@ highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
 highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
 
 " This allows the sensible settings to be overriden.
- runtime! plugin/sensible.vim
+runtime! plugin/sensible.vim
 
 if exists("g:loaded_webdevicons")
     call webdevicons#refresh()
