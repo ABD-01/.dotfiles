@@ -37,9 +37,10 @@ call plug#begin()
 
     " NERD tree will be loaded on the first invocation of NERDTreeToggle command
     Plug 'scrooloose/nerdtree'
-    " Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    "Plug 'unkiwii/vim-nerdtree-sync'  " to sync the current file
+
+    " Not that powerline isn't perfect... right?
+    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
 
     " Why we theme
     " Plug 'tomasr/molokai'
@@ -49,23 +50,9 @@ call plug#begin()
     " Git wrapper inside Vim
     Plug 'tpope/vim-fugitive'
 
-    " Git Stuff
-    Plug 'airblade/vim-gitgutter'
-
-    " File searching with faster matching
-    " Plug 'ctrlpvim/ctrlp.vim'
-    " Plug 'FelikZ/ctrlp-py-matcher'
-
     " Fuzzy Finder
     Plug 'junegunn/fzf.vim'
     Plug '~/.fzf'
-    
-    " Easy motions.
-    Plug 'Lokaltog/vim-easymotion'
-
-    " Not that powerline isn't perfect... right?
-    Plug 'bling/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
 
     " Any Jump
     " Plug 'pechorin/any-jump.vim'
@@ -86,21 +73,20 @@ call plug#begin()
     " Handle surround chars like ''
     Plug 'tpope/vim-surround'
 
-    " Better Minibuff Kinda Pointless?
-    " Plug 'weynhamz/vim-plugin-minibufexpl'
-
     " Language Support
-    " Protobuf support
     Plug 'uarun/vim-protobuf'
-
-    " Rust support 
     Plug 'rust-lang/rust.vim'
-
-    " Pretty
-    " Plug 'ryanoasis/vim-devicons'
 
     " Diff
     Plug 'will133/vim-dirdiff'
+
+    " LSP
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'mattn/vim-lsp-settings'
+
 call plug#end()
 call plug#helptags()
 
@@ -135,22 +121,18 @@ set noswapfile     "no swap files
 set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
                         " ref: https://stackoverflow.com/a/71592986
 
-augroup QuickfixSplit
-  autocmd!
-  autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
-augroup END
+" augroup QuickfixSplit
+"   autocmd!
+"   autocmd FileType qf nnoremap <buffer> <leader><CR> <C-w><Enter><C-w>L
+" augroup END
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
-
-set tags+=~/.vim/tags/ucrt_tags
-set tags+=~/.vim/tags/vector_tags
-set tags+=/d/PROJECTS/mpbu/third_party/raylib/tags
 set rtp+=~/.fzf
 
-" " ================ Mappings ======================
+" ================ Mappings ======================
 " " Probably NOT a good idea
 " "nnoremap <F2> :set invpaste paste?<CR>
 nnoremap ; :
@@ -163,9 +145,6 @@ let mapleader=" "
 " let maplocalleader = "\\"
 map <leader>n :new<cr>
 map <leader>i I
-"map <leader><c-p> :CtrlPBookmarkDir<CR>
-"map <c-b> :CtrlPBuffer<CR>
-"map <c-s> :CtrlPMRUFiles<CR>
 
 " toggle relative numbering
 nnoremap <leader>rn :set rnu!<CR>
@@ -209,8 +188,9 @@ vmap <C-k> <Plug>MoveBlockUp
 vmap <C-h> <Plug>MoveBlockLeft
 vmap <C-l> <Plug>MoveBlockRight
 
-" Open tag in vsplit
-nnoremap <C-]> :vert winc ]<CR>
+" Open tag in vsplit for leader + C-]
+nnoremap <leader><C-]> <C-w>v<C-]>
+
 
 " For some reason enter is mapped to comment so undoing it.
 " default behavior of enter (<CR>) is same as + (Move down one line, to first non-blank character)
@@ -222,13 +202,6 @@ if has("autocmd")
  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
  \| exe "normal! g'\"" | endif
 endif
-
-" Easy Motion
- "keep cursor colum JK motion
-let g:EasyMotion_startofline = 0 
-map <Leader>J <Plug>(easymotion-sol-j)
-map <Leader>K <Plug>(easymotion-sol-k)
-
 
 " ================ Indentation ======================
 
@@ -246,7 +219,7 @@ set shiftwidth=4 " 1 tab == 4 spaces
 set expandtab " Use spaces instead of tabs
 " ================ Folds ============================
 
-set foldmethod=syntax   "fold based on indent
+set foldmethod=manual   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 set foldlevelstart=10   " fold very nested folds by default
@@ -265,15 +238,6 @@ set incsearch      " do incremental searching
 set hlsearch        " Highlight searches by default
 set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-" Removed it as it did not allow searching for * and #
 
 nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
 
@@ -282,32 +246,21 @@ nnoremap <silent> <ESC> :noh<CR> " remove highlighing after search
 set path+=**        " search into subdirectores, provide tab
 set wildmenu        " display all matching files when tab completes
 
-" " Ctrl P Stuff
-" "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
-" let g:ctrlp_map = '<C-f>'
-" let g:ctrlp_cmd = 'CtrlP'
-" map <C-f> :CtrlP<CR>
-" map <leader><c-p> :CtrlPBookmarkDir<CR>
-" map <C-b> :CtrlPBuffer<CR>
-" map <C-p> :CtrlPMRUFiles<CR>
-"  "let g:ctrlp_root_markers = ['.ctrlp','.latexmain','.agignore']
-"  "let g:ctrlp_working_path_mode = 0 
-" let g:ctrlp_use_caching = 1
-" 
-" let g:ctrlp_custom_ignore = {
-" \ 'dir':  '\v[\/]\.(git|hg|svn|cache|)$',
-" \ 'file': '\v\.(exe|so|dll|dll|log|lof|swp|out)$',
-" \ 'link': 'some_bad_symbolic_links',
-" \ }
 
 " Fcuk Ctrl-P (it is slow) I use fzf
 map <C-f> :Files<CR>
 map <C-b> :Buffers<CR>
 map <C-p> :History<CR>
+nnoremap <silent> <Leader>v :call fzf#run({'right': winwidth('.') / 2,'sink':  'vertical botright split' })<CR>
+nnoremap <silent> <Leader>s :call fzf#run({'down': '40%','sink': 'botright split' })<CR>
 
-if filereadable(expand("~/.dotfiles/vim/fzf-keybinds.vim"))
-    source ~/.dotfiles/vim/fzf-keybinds.vim
-endif
+" ================ Nerd Tree ============================
+let g:NERDTreeMinimalUI  = 1
+let g:NERDTreeQuitOnOpen = 1
+let NERDTreeIgnore=['^node_modules$', '\~$', '.o$', 'bower_components', 'node_modules', '__pycache__']
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 " anyjump
 let g:any_jump_search_prefered_engine = 'rg'
@@ -324,9 +277,125 @@ nnoremap <Leader>g :ter <C-r>=&buftype == 'terminal'
 let g:NERDCreateDefaultMappings = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '// ','right': '' } }
 
+"Git Gutter
+highlight GitGutterAdd    guifg=#009900 ctermfg=Green
+highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
+highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
+
+" ================ Multi Cursor ============================
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-x>'   " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-x>'   " replace visual C-n
+
+" ================ LSP ============================
+
+" Path to clangd
+let g:clangd = 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe'
+
+" Register clangd if executable exists
+if filereadable(g:clangd)
+  augroup lsp_clangd
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'clangd',
+          \ 'cmd': {-> [g:clangd, '--background-index']},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+          \ })
+
+        " Set omnifunc for LSP completion
+        autocmd FileType c,cpp,objc,objcpp setlocal omnifunc=lsp#complete
+    augroup END
+endif
+
+" Register rust-analyzer
+if executable('rust-analyzer')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
+        \ 'allowlist': ['rust'],
+        \ 'initialization_options': {
+        \   'cargo': {
+        \     'allFeatures': v:true,
+        \   },
+        \   'check': {
+        \     'command': 'clippy',
+        \   },
+        \ },
+        \ })
+endif
+
+" Buffer-local mappings and settings
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+
+    " Navigation
+    nnoremap <buffer> gd <plug>(lsp-definition)
+    nnoremap <buffer> gD <plug>(lsp-declaration)
+    nnoremap <buffer> gi <plug>(lsp-implementation)
+    nnoremap <buffer> gr <plug>(lsp-references)
+    nnoremap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nnoremap <buffer> gs <plug>(lsp-document-symbol-search)
+
+    " Actions
+    nnoremap <buffer> <leader>fm :LspDocumentFormat<CR>
+    nnoremap <buffer> <leader>rn <plug>(lsp-rename)
+    nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
+    nnoremap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <leader>e <plug>(lsp-document-diagnostics)
+    nnoremap <buffer> [d <plug>(lsp-previous-diagnostic)
+    nnoremap <buffer> ]d <plug>(lsp-next-diagnostic)
+
+    " Scroll hover info
+    nnoremap <buffer> <expr> <leader>j lsp#scroll(+4)
+    nnoremap <buffer> <expr> <leader>k lsp#scroll(-4)
+
+    " Formatting on save (adjust filetypes as needed)
+    " let g:lsp_format_sync_timeout = 1000
+    " autocmd! BufWritePre *.c,*.cpp call execute('LspDocumentFormatSync')
+endfunction
+
+" Attach mappings when buffer gets an LSP server
+augroup lsp_install
+    autocmd!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+let g:asyncomplete_auto_popup = 1
+
+" Disable vim-lsp-settings auto-suggest/install prompts
+let g:lsp_settings_enable_suggestions = 0
+
+" =============== LSP UI Settings ===================
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_highlights_enabled = 0
+
+" Show diagnostics in virtual text
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
+" let g:lsp_diagnostics_virtual_text_enabled = 1
+
+" Diagnostic signs
+let g:lsp_diagnostics_signs_error = {'text': '✗'}
+let g:lsp_diagnostics_signs_warning = {'text': '⚠'}
+let g:lsp_diagnostics_signs_hint = {'text': '➤'}
+let g:lsp_diagnostics_signs_information = {'text': 'ℹ'}
+
+" Enable hover preview window
+let g:lsp_hover_ui = 'float'
+let g:lsp_preview_float = 1
+
+" Enable code lens
+let g:lsp_code_action_ui = 'float'
+
 
 " ================ Airline Stuff ============================
 " Use the airline thing anyway.
+let g:airline#extensions#branch#enabled = 0   " do not print branch name in airline
+let g:airline#extensions#hunks#enabled = 0
 " let g:miniBufExplAutoStart = 0
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tmuxline#enabled = 0 " Don't interefere with tmuxline
@@ -368,59 +437,4 @@ let g:airline_section_z = '𝓛𝓷 %l/%L 𝓒𝓸𝓵%c'
 
 
 " Automatically load .vimrc source when saved
-" autocmd BufWritePost .vimrc source ~/.vimrc
-autocmd BufWritePost .vimrc source /c/Users/Abdullah/.dotfiles/vim/.vimrc
-
-
-
-" NERDtree FileType Highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-   exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-" For the NERDtree-git-plugin
-let g:NERDTreeGitStatusIndicatorMapCustom = {
- \ "Modified"  : "✹",
- \ "Staged"    : "✚",
- \ "Untracked" : "✭",
- \ "Renamed"   : "➜",
- \ "Unmerged"  : "═",
- \ "Deleted"   : "✖",
- \ "Dirty"     : "✗",
- \ "Clean"     : "✔︎",
- \ "Unknown"   : "?"
- \ }
-
-let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
-let NERDTreeIgnore=['^node_modules$', '\~$', '.o$', 'bower_components', 'node_modules', '__pycache__']
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-
-"Git Gutter
-highlight GitGutterAdd    guifg=#009900 ctermfg=Green
-highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
-highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
-
-" This allows the sensible settings to be overriden.
-runtime! plugin/sensible.vim
-
-if exists("g:loaded_webdevicons")
-    call webdevicons#refresh()
-endif
+autocmd BufWritePost .vimrc source ~/.vimrc
