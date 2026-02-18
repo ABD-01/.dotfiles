@@ -22,13 +22,11 @@ local mappings = {
     ["<C-k>"] = { "<C-w>k", "Move to above split" },
     ["<C-l>"] = { "<C-w>l", "Move to right split" },
 
-    ["<C-n>"] = { ":NvimTreeToggle<CR>", "Toggle File Tree" },
-    ["<leader>ff"] = { ":NvimTreeFindFile<CR>", "Reveal File in Tree" },
 
     -- File/buffer navigation
-    ["<C-p>"] = { ":Telescope find_files<CR>", "Fuzzy file finder" },
-    ["<C-f>"] = { ":Telescope live_grep<CR>", "Live grep search" },
+    ["<C-f>"] = { ":Telescope find_files<CR>", "Fuzzy file finder" },
     ["<C-b>"] = { ":Telescope buffers<CR>", "List buffers" },
+    ["<leader>v"] = { ":Telescope live_grep<CR>", "Live grep search" },
 
     -- Git
     ["<leader>gs"] = { ":Telescope git_status<CR>", "Git status" },
@@ -50,6 +48,8 @@ local mappings = {
   v = {
     ["<Tab>"] = { ">", "Indent" },
     ["<S-Tab>"] = { "<", "Un-indent" },
+    ["<C-k>"] = { ":m '<-2<CR>gv=gv", "Move line up" },
+    ["<C-j>"] = { ":m '>+1<CR>gv=gv", "Move line down" },
   },
 
   t = {
