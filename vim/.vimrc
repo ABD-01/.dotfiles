@@ -217,6 +217,11 @@ set formatoptions+=t
 set tabstop=4 softtabstop=4 " 1 tab == 4 spaces
 set shiftwidth=4 " 1 tab == 4 spaces
 set expandtab " Use spaces instead of tabs
+
+" Disable vim's built-in Python indentexpr — it crashes on very long
+" bracket-heavy lines (e.g. nested lambdas). Falls back to smartindent.
+autocmd FileType python setlocal indentexpr=
+
 " ================ Folds ============================
 
 set foldmethod=manual   "fold based on indent
