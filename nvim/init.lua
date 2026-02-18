@@ -11,22 +11,57 @@ local plugins = {
   -- Telescope for fuzzy finding
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
-  -- File tree
-  { "nvim-tree/nvim-tree.lua" },
+  -- Nerd tree
+  {
+    "preservim/nerdtree",
+    cmd = { "NERDTreeToggle", "NERDTreeFind" },
+    keys = {
+      { "<C-n>", "<cmd>NERDTreeToggle<CR>", desc = "Toggle NERDTree" },
+      { "<leader>ff", "<cmd>NERDTreeFind<CR>", desc = "Find current file in NERDTree" },
+    },
+    init = function()
+      vim.g.NERDTreeShowHidden = 1
+      vim.g.NERDTreeMinimalUI = 1
+      vim.g.NERDTreeQuitOnOpen = 1
+      vim.g.NERDTreeIgnore = {
+        '^node_modules$',
+        '\\~$',
+        '.o$',
+        'bower_components',
+        'node_modules',
+        '__pycache__',
+      }
+
+      vim.api.nvim_create_autocmd("BufEnter", {
+        command = "if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif",
+      })
+    end,
+  },
 
   -- Status line
-  { "nvim-lualine/lualine.nvim" },
+  -- { "nvim-lualine/lualine.nvim" },
 
   -- Colorscheme
   { "ellisonleao/gruvbox.nvim" },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "joshdick/onedark.vim" },
   { "rose-pine/neovim" },
+  { "gbprod/nord.nvim" },
 
   -- Nerdcommenter alternative
   { "numToStr/Comment.nvim" },
 
   { "eandrju/cellular-automaton.nvim" },
+
+  -- Multi cursor (same plugin as vim)
+  {
+    "mg979/vim-visual-multi",
+    init = function()
+      vim.g.VM_maps = {
+        ["Find Under"]         = "<C-x>",
+        ["Find Subword Under"] = "<C-x>",
+      }
+    end,
+  },
 }
 
 -- ============== Setup lazy.nvim ==================
@@ -44,7 +79,7 @@ require("lazy").setup(plugins)
 -- =================== Plugin Configs ====================
 
 vim.cmd("colorscheme gruvbox")
-vim.opt.background = "dark"
+-- vim.opt.background = "dark"
 
 -- Telescope Setup
 require("telescope").setup()
@@ -56,19 +91,12 @@ require("telescope").setup()
 --   },
 -- })
 
--- File Tree Setup
-require("nvim-tree").setup()
 
 -- Lualine
-require("lualine").setup()
+-- require("lualine").setup()
 
 -- Comment.nvim
 require("Comment").setup()
-
-
-require("catppuccin").setup({
-  transparent_background=true,
-})
 
 require("rose-pine").setup({
   styles = { transparency = true, },
