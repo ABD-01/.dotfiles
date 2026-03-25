@@ -4,7 +4,7 @@ local act = wezterm.action
 local config = {}
 
 -- Font settings
-config.font = wezterm.font('FiraCode Nerd Font')
+config.font = wezterm.font('FiraCode Nerd Font Mono')
 config.font_size = 12.0
 
 -- Color themes cycling setup
@@ -20,7 +20,7 @@ local themes = {
   'OneDark (Gogh)',
   'rebecca',
 }
-local current_theme = 6
+local current_theme = 3
 config.color_scheme = themes[current_theme]
 
 -- Set default program to Git Bash
@@ -116,6 +116,15 @@ config.keys = {
 
   -- QEMU Ctrl+a x
   { key = 'x', mods = 'LEADER', action = act.SendKey { key = 'a', mods = 'CTRL' } },
+
+  -- Wrap current command with run(): Ctrl+A (BOL) → "r " → Enter
+  {
+    key = 'Enter', mods = 'CTRL',
+    action = act.Multiple {
+      act.SendString '\x01_r ',
+      act.SendKey { key = 'Enter' },
+    },
+  },
 }
 
 
@@ -134,20 +143,20 @@ end)
 
 -- GPU Preference
 config.webgpu_preferred_adapter = {
-  backend = "Dx12",
-  -- backend = "Vulcan",
-  device = 27015,
+  backend = "Vulkan",
+  device = 8085,
   device_type = "DiscreteGpu",
-  driver_info = "21.30.23.04",
-  name = "AMD Radeon (TM) RX 640",
-  vendor = 4098
+  driver = "NVIDIA",
+  driver_info = "591.44",
+  name = "NVIDIA GeForce GTX 1650 Ti",
+  vendor = 4318,
 }
 config.webgpu_power_preference = 'HighPerformance'
 
 -- Terminal settings
 config.window_close_confirmation = 'NeverPrompt'
 config.term = "xterm-256color" 
-config.window_background_opacity = 0.8
+config.window_background_opacity = 1
 -- config.hide_tab_bar_if_only_one_tab = true
 -- config.use_fancy_tab_bar = false
 
@@ -164,82 +173,93 @@ config.front_end = "WebGpu"
 -- config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.7 }
 config.inactive_pane_hsb = { brightness = 1 }
 
+
+
+local rubiks = {
+    source = { File = "C:/Users/abdul/Downloads/Wallpapers4/rubiks-cube.png"},
+    hsb = {brightness=0.9},
+    --vertical_offset = "-15cell",
+    horizontal_align = "Center"
+}
+
 local lollipop = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/wallhaven-5gvgy3.jpg"},
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/wallhaven-5gvgy3.jpg"},
     hsb = {brightness=0.06},
     vertical_offset = "-15cell",
     horizontal_align = "Center"
 }
 
 local sandstorm = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/GuboP3NaUAAv0Sp.jpg"},
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/GuboP3NaUAAv0Sp.jpg"},
     hsb = {hue=1.5, saturation=1.1, brightness=0.103},
     horizontal_align = "Center"
 }
 
 local yxkp6x = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/wallhaven-yxkp6x.jpg"},
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/wallhaven-yxkp6x.jpg"},
     height = 'Contain',
     hsb = {brightness=0.05},
 }
 
 local city_lights = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/wallhaven-5yd6d5.png" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/wallhaven-5yd6d5.png" },
     hsb = {brightness=0.07},
 }
 
 
 local katana = {
-    source = { File = "C:/Users/Abdullah/Downloads/Wallpapers/samurai-katana-warrior-sword-silhouette-fighting-battle-artw.jpg" },
+    source = { File = "C:/Users/abdul/Downloads/Wallpapers/samurai-katana-warrior-sword-silhouette-fighting-battle-artw.jpg" },
     hsb = {hue=0.07, saturation=1.1, brightness=0.07},
     vertical_offset = "-3cell",
 }
 
 local bike = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/wallhaven-l3dd1r.jpg" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/wallhaven-l3dd1r.jpg" },
     hsb = {brightness=0.13},
 }
 
 local gwen = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/image.jpg" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/image.jpg" },
     hsb = {hue=0.9, saturation=1.1, brightness=0.016},
 }
 
 local tifa = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/wallhaven-x6kk2o.jpg"},
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/wallhaven-x6kk2o.jpg"},
     height = 'Contain',
     hsb = {brightness=0.05},
 }
 
 local desktopHut_3960 = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/desktopHut_3960.gif" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/desktopHut_3960.gif" },
     hsb = {brightness=0.04},
     horizontal_align = "Center",
 }
 
 local rrzz6m = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/wallhaven-rrzz6m.png" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/wallhaven-rrzz6m.png" },
     hsb = {brightness=0.08},
     vertical_offset = "-40cell",
 }
 
 
 local artstation = {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/artstation.jpg" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/artstation.jpg" },
     hsb = {brightness=0.08},
 }
 
 local cp1bmwginjrd1= {
-    source = { File = "C:/Users/Abdullah/Downloads/wallpapers3/cp1bmwginjrd1.jpg" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/cp1bmwginjrd1.jpg" },
     hsb = {brightness=0.04},
 }
 
 local nutcracker = {
-    source = { File = "C:/Users/Abdullah/Downloads/OccasionalKindlyNutcracker-ezgif.com-video-to-gif-converter.gif" },
+    source = { File = "C:/Users/abdul/Downloads/wallpapers3/RDT_20240626_1615582191250765174800272.jpg" },
     hsb = {brightness=0.04},
+    vertical_offset = "-4cell",
 }
 
 local backgrounds = {
+  rubiks,
   lollipop,
   sandstorm,
   artstation,
@@ -249,18 +269,17 @@ local backgrounds = {
 }
 
 local sfw_sensitive = {
+  nutcracker,
   yxkp6x,
   gwen,
   desktopHut_3960,
   tifa,
   rrzz6m,
   cp1bmwginjrd1,
-  nutcracker,
 }
 
 local current_bg = 1
--- config.background = {backgrounds[current_bg]}
--- config.background = {kokkoro}
+config.background = {backgrounds[current_bg]}
 
 wezterm.on("toggle-next-background", function(window, pane)
   current_bg = (current_bg % #backgrounds) + 1
@@ -274,11 +293,11 @@ wezterm.on("show-sensitive-bg", function(window, pane)
     wezterm.action.InputSelector {
       action = wezterm.action_callback(function(win, _, id, label)
         if label == "Yes" then
-          current_bg = (current_bg % #sfw_sensitive) + 1
           win:set_config_overrides({
             background = {sfw_sensitive[current_bg]}
             -- background = {sfw_sensitive[math.random(#sfw_sensitive)]}
           })
+          current_bg = (current_bg % #sfw_sensitive) + 1
         end
       end),
       title = "Are you sure?",

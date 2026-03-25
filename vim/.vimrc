@@ -118,7 +118,7 @@ set t_Co=256                 " force vim to use 256 colors
 set hidden                  "Buffers can exist in the background without being in a window.
 set noswapfile     "no swap files
 
-set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
+" set switchbuf=vsplit    " To open buffer from quickfix list in vsplit (sideeffects are not testes)
                         " ref: https://stackoverflow.com/a/71592986
 
 " augroup QuickfixSplit

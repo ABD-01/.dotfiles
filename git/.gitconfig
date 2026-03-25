@@ -1,6 +1,6 @@
 [user]
-	email = muhammed.shaikh@accoladeelectronics.com
-	name = Muhammed Abdullah Shaikh
+    email = 
+    name = ABD-01
 [alias]
     s = status -sb
 	a = add .
@@ -18,10 +18,11 @@
   	graph = log --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
   	graph2 = log --graph --full-history --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m"
     
-    fb = !sh -c \"git branch -a | grep -v remotes | grep $1\"
-    # cb = !sh -c \"git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout\"
-    cb = !sh -c \"git checkout $(git branch -a | grep -v remotes | fzf)\"
+    # fb = !sh -c \"git branch -a | grep -v remotes | grep $1\"
     # fb = "!git branch -a | grep -v remotes | grep $1"
+    #
+    # cb = !sh -c \"git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout\"
+    # cb = !sh -c \"git checkout $(git branch -a | grep -v remotes | fzf)\"
     # cb = "!git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout"
 
 	# list aliases

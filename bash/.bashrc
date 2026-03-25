@@ -1,15 +1,15 @@
-# eval "$(oh-my-posh init bash --config /c/Users/Abdullah/.dotfiles/bash/microverse-power-custom.omp.json)"
-eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/honukai.omp.json)"
-# eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/di4am0nd.omp.json)"
-# eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/microverse-power.omp.json)"
-# eval "$(oh-my-posh init bash --config C:/Users/Abdullah/AppData/Local/Programs/oh-my-posh/themes/nordtron.omp.json)"
+# eval "$(oh-my-posh init bash --config ~/.dotfiles/bash/microverse-power-custom.omp.json)"
+# eval "$(oh-my-posh init bash --config ~/AppData/Local/Programs/oh-my-posh/themes/honukai.omp.json)"
+# eval "$(oh-my-posh init bash --config ~/AppData/Local/Programs/oh-my-posh/themes/di4am0nd.omp.json)"
+# eval "$(oh-my-posh init bash --config ~/AppData/Local/Programs/oh-my-posh/themes/microverse-power.omp.json)"
+# eval "$(oh-my-posh init bash --config ~/AppData/Local/Programs/oh-my-posh/themes/nordtron.omp.json)"
 # export PYTHONIOENCODING="utf-8"
 # eval "$(thefuck --alias)"
 
 # Aliases
 alias cst='clear;git status'
 alias dl="cd ~/Downloads"
-if [ -d "~/projects" ]; then
+if [ -d "$HOME/projects" ]; then
     alias p="cd ~/projects"
 fi
 
@@ -31,12 +31,12 @@ function_exists() {
 	return $?
 }
 
-for al in $(git --list-cmds=alias); do
-	alias g$al="git $al"
+# for al in $(git --list-cmds=alias); do
+# 	alias g$al="git $al"
 
-	complete_func=_git_$(__git_aliased_command $al)
-	function_exists $complete_fnc && __git_complete g$al $complete_func
-done
+#	complete_func=_git_$(__git_aliased_command $al)
+#	function_exists $complete_fnc && __git_complete g$al $complete_func
+#done
 
 # Create a new directory and enter it
 function mkcd() {
@@ -73,9 +73,30 @@ alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
 
+# Run wrapper — prints colored exit status after any command
+# Usage: _r ./a.exe  |  _r clang main.c -o main
+_r() {
+    [[ "$1" == "_r" ]] && shift
+    "$@"
+    local code=$?
+    local ts=$(date '+%a %b %d %H:%M:%S %Y')
+    local RED='\033[1;31m'
+    local GRN='\033[1;32m'
+    local RST='\033[0m'
+	echo ""
+    if [ $code -eq 0 ]; then
+        echo -e "Compilation ${GRN}finished${RST} at ${ts}"
+    elif [ $code -eq 139 ] || [ $code -eq 11 ]; then
+        echo -e "Compilation ${RED}segmentation fault${RST} at ${ts}"
+    else
+        echo -e "Compilation ${RED}exited abnormally${RST} with code ${RED}${code}${RST} at ${ts}"
+    fi
+    return $code
+}
+
 [ -f "$HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br" ] && source $HOME/AppData/Roaming/dystroy/broot/config/launcher/bash/br
 
-[ -f ~/.dotfiles/bash/workspace_aliases.sh ] && source "$HOME/.dotfiles/bash/workspace_aliases.sh"
+[ "$(hostname)" = "AEPL-193" ] && [ -f ~/.dotfiles/bash/workspace_aliases.sh ] && source "$HOME/.dotfiles/bash/workspace_aliases.sh"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 

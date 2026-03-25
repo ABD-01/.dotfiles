@@ -1,0 +1,39 @@
+Checks: >
+  -*,
+  readability-identifier-naming,
+  readability-identifier-length
+
+WarningsAsErrors: '*' 
+
+CheckOptions:
+  - key:             readability-identifier-naming.VariableCase
+    value:           lower_case
+
+  # Global variables must have g_ prefix, enforced as snake_case with prefix "g_"
+  - key:             readability-identifier-naming.GlobalVariableCase
+    value:           lower_case
+  - key:             readability-identifier-naming.GlobalVariablePrefix
+    value:           g_
+
+  # Macros: ALL UPPERCASE with underscores
+  - key:             readability-identifier-naming.MacroDefinitionCase
+    value:           UPPER_CASE
+
+  # Enums: UPPERCASE
+  - key:             readability-identifier-naming.EnumConstantCase
+    value:           UPPER_CASE
+
+  # Variable Lenght
+  - key:             readability-identifier-length.MinimumVariableNameLength
+    value:           4
+
+  - key:             readability-identifier-length.MinimumParameterNameLength
+    value:           4
+
+  - key:             readability-identifier-length.MinimumLoopCounterNameLength
+    value:           1
+
+  - key:             readability-identifier-length.IgnoredLoopCounterNames
+    value:           '^[ijkxyz]$'
+
+

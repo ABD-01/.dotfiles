@@ -31,9 +31,8 @@ CLEANDEBUG()
   WORKSPACE_PATH=D:/PROJECTS/falcon/ATCU_Workspace
   rm -rf $WORKSPACE_PATH/ATCU/Debug_APP/
 }
-alias make='/c/CSDTK4/make64/make.exe'
 alias ucrt='/c/msys64/msys2_shell.cmd -here -no-start -defterm -ucrt64 -use-full-path'
-alias vact='source ~/.virtualenvs/ATCU_Workspace-VdKM886n/Scripts/activate'
+alias vact='source ~/.virtualenvs/PROJECTS-zJLVuuHn/Scripts/activate'
 
 alias gfb='git branch -a | grep -v remotes | grep $1'
 alias gcb='git checkout $(git branch -a | grep -v remotes | fzf)'

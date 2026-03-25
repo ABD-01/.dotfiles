@@ -103,52 +103,69 @@ require("rose-pine").setup({
 })
 
 -- =============== LSP + Autocompletion ===================
-local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local on_attach = function(_, bufnr)
-  local opts = { buffer = bufnr }
-  local km = vim.keymap
-  km.set("n", "gd", vim.lsp.buf.definition, opts)
-  km.set("n", "gD", vim.lsp.buf.declaration, opts)
-  km.set("n", "gi", vim.lsp.buf.implementation, opts)
-  km.set("n", "gr", vim.lsp.buf.references, opts)
-  km.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  km.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-  km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts)
-  km.set("n", "K", vim.lsp.buf.hover, opts)
+-- Use Neovim 0.11+ LspAttach autocmd instead of on_attach callback
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local opts = { buffer = bufnr }
+    local km = vim.keymap
+    
+    km.set("n", "gd", vim.lsp.buf.definition, opts)
+    km.set("n", "gD", vim.lsp.buf.declaration, opts)
+    km.set("n", "gi", vim.lsp.buf.implementation, opts)
+    km.set("n", "gr", vim.lsp.buf.references, opts)
+    km.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    km.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts)
+    km.set("n", "K", vim.lsp.buf.hover, opts)
 
-  km.set("n", "<leader>e", vim.diagnostic.open_float, opts)
-  km.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  km.set("n", "]d", vim.diagnostic.goto_next, opts)
-end
+    km.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+    km.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    km.set("n", "]d", vim.diagnostic.goto_next, opts)
+  end,
+})
 
-lspconfig.clangd.setup({
-  cmd = {
-    "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe"
-  },
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-lspconfig.cmake.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
--- Add rust-analyzer
-lspconfig.rust_analyzer.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    ["rust-analyzer"] = {
-      cargo = {
-        allFeatures = true,
-      },
-      check = {
-        command = "clippy",
+-- Register and enable servers using Neovim 0.11+ style
+-- This avoids the deprecated require('lspconfig').setup() framework
+if vim.lsp.config then
+  -- clangd
+  vim.lsp.config('clangd', {
+    cmd = { "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe" },
+    capabilities = capabilities,
+  })
+  vim.lsp.enable('clangd')
+
+  -- cmake
+  vim.lsp.config('cmake', {
+    capabilities = capabilities,
+  })
+  vim.lsp.enable('cmake')
+
+  -- rust-analyzer
+  vim.lsp.config('rust_analyzer', {
+    capabilities = capabilities,
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = { allFeatures = true },
+        check = { command = "clippy" },
       },
     },
-  },
-})
+  })
+  vim.lsp.enable('rust_analyzer')
+else
+  -- Fallback for versions < 0.11 if needed
+  local lspconfig = require("lspconfig")
+  local on_attach = function(_, bufnr)
+    local opts = { buffer = bufnr }
+    local km = vim.keymap
+    km.set("n", "gd", vim.lsp.buf.definition, opts)
+    -- ... other mappings omitted for brevity in fallback ...
+  end
+  lspconfig.clangd.setup({ cmd = { "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe" }, capabilities = capabilities, on_attach = on_attach })
+  lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
+end
 
 local cmp = require("cmp")
 cmp.setup({
