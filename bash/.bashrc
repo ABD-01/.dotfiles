@@ -101,3 +101,5 @@ _r() {
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [ -f ~/z/z.sh ] && source ~/z/z.sh
+
+export MANPAGER="less -R"

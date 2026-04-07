@@ -132,7 +132,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 if vim.lsp.config then
   -- clangd
   vim.lsp.config('clangd', {
-    cmd = { "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe" },
+    cmd = { "C:/Users/muhsha/AppData/Local/llvm-mingw-20260324-ucrt-aarch64/bin/clangd.exe" },
     capabilities = capabilities,
   })
   vim.lsp.enable('clangd')
@@ -163,7 +163,7 @@ else
     km.set("n", "gd", vim.lsp.buf.definition, opts)
     -- ... other mappings omitted for brevity in fallback ...
   end
-  lspconfig.clangd.setup({ cmd = { "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clangd.exe" }, capabilities = capabilities, on_attach = on_attach })
+  lspconfig.clangd.setup({ cmd = { "C:/Users/muhsha/AppData/Local/llvm-mingw-20260324-ucrt-aarch64/bin/clangd.exe" }, capabilities = capabilities, on_attach = on_attach })
   lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
 end
 
