@@ -1,5 +1,9 @@
 # .dotfiles
 
+## My Setup
+
+![setup](setup.png)
+
 ## Creating symlinks in windows
 Open command prompt in elevated state
 
