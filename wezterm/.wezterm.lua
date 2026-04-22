@@ -12,6 +12,7 @@ local themes = {
   'Sonokai (Gogh)',
   'Dracula (base16)',
   'Gruvbox dark, soft (base16)',
+  'Catppuccin Latte (Gogh)',
   'Papercolor Dark (Gogh)',
   'Clone Of Ubuntu (Gogh)',
   'Nord (Gogh)',
@@ -36,6 +37,11 @@ local ucrt_cmd = {
 local x64_vcvars_cmd = {
   label = "x64 Native Tools Command Prompt for VS 2022",
   args = { os.getenv("COMSPEC"), "/k", [[C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat]] },
+}
+local ssh_mdcp_cmd = {
+  label = "SSH into Dev Compute Machine",
+  -- args = { "ssh", "devcompute", "-i", "~/.ssh/forDC", "-t", "zsh -l" },
+  args = { "ssh", "devcompute", "-t", "zsh -l" },
 }
 local ssh_noble_cmd = {
   label = "SSH into noble VM running in QEMU",
@@ -67,8 +73,8 @@ config.keys = {
   -- Pane splits
   { key = 'v', mods = 'ALT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
   { key = 'h', mods = 'ALT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
-  { key = 'v', mods = 'LEADER|ALT', action = act.SplitHorizontal(ssh_noble_cmd) },
-  { key = 'h', mods = 'LEADER|ALT', action = act.SplitVertical(ssh_noble_cmd) },
+  { key = 'v', mods = 'LEADER|ALT', action = act.SplitHorizontal(ssh_mdcp_cmd) },
+  { key = 'h', mods = 'LEADER|ALT', action = act.SplitVertical(ssh_mdcp_cmd) },
 
   -- pane resize
   { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = act.AdjustPaneSize { 'Left', 5 } },
@@ -83,7 +89,7 @@ config.keys = {
   { key = 't', mods = 'CTRL|ALT', action = act.SpawnTab 'CurrentPaneDomain' },
   
   -- Launch MSYS2 UCRT64 in a new tab
-  { key = 't', mods = 'LEADER|CTRL', action = act.SpawnCommandInNewTab(ssh_noble_cmd) },
+  { key = 't', mods = 'LEADER|CTRL', action = act.SpawnCommandInNewTab(ssh_mdcp_cmd) },
 
   -- Cycle themes
   {
