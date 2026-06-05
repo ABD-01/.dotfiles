@@ -26,6 +26,8 @@ local mappings = {
     -- File/buffer navigation
     ["<C-f>"] = { ":Telescope find_files<CR>", "Fuzzy file finder" },
     ["<C-b>"] = { ":Telescope buffers<CR>", "List buffers" },
+    ["<C-p>"] = { ":Telescope oldfiles<CR>", "Previously Used Files" },
+    ["<leader><C-r>"] = { ":Telescope resume<CR>", "Resume last Telescope picker" },
     ["<leader>v"] = { ":Telescope live_grep<CR>", "Live grep search" },
 
     -- Git
@@ -36,6 +38,18 @@ local mappings = {
     -- LSP and Help
     ["<leader>ld"] = { ":Telescope diagnostics<CR>", "LSP Diagnostics" },
     ["<leader>lh"] = { ":Telescope help_tags<CR>", "Search help tags" },
+
+    -- Tab navigation
+    ["<leader>1"] = { "1gt", "Go to tab 1" },
+    ["<leader>2"] = { "2gt", "Go to tab 2" },
+    ["<leader>3"] = { "3gt", "Go to tab 3" },
+    ["<leader>4"] = { "4gt", "Go to tab 4" },
+    ["<leader>5"] = { "5gt", "Go to tab 5" },
+    ["<leader>6"] = { "6gt", "Go to tab 6" },
+    ["<leader>7"] = { "7gt", "Go to tab 7" },
+    ["<leader>8"] = { "8gt", "Go to tab 8" },
+    ["<leader>9"] = { "9gt", "Go to tab 9" },
+    ["<leader>0"] = { ":tablast<CR>", "Go to last tab" },
 
     -- FML
     ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" }, 
