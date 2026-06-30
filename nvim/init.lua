@@ -7,6 +7,7 @@ local plugins = {
   { "hrsh7th/nvim-cmp" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "L3MON4D3/LuaSnip" },
+  { "saadparwaiz1/cmp_luasnip" },
 
   -- Telescope for fuzzy finding
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
@@ -39,13 +40,15 @@ local plugins = {
   },
 
   -- Status line
-  -- { "nvim-lualine/lualine.nvim" },
+  { "nvim-lualine/lualine.nvim" },
 
   -- Colorscheme
   { "ellisonleao/gruvbox.nvim" },
   { "joshdick/onedark.vim" },
   { "rose-pine/neovim" },
   { "gbprod/nord.nvim" },
+  { "dracula/vim" },
+  { "catppuccin/nvim" },
 
   -- Nerdcommenter alternative
   { "numToStr/Comment.nvim" },
@@ -62,6 +65,34 @@ local plugins = {
       }
     end,
   },
+
+  -- Git wrapper inside Nvim
+  { "tpope/vim-fugitive" },
+
+  -- Git Gutter
+  { "lewis6991/gitsigns.nvim" },
+
+  { 
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      smear_between_buffers = true,
+      smear_between_neighbor_lines = true,
+      scroll_buffer_space = true,
+      legacy_computing_symbols_support = false,
+      smear_insert_mode = true,
+      stiffness = 0.8,
+      trailing_stiffness = 0.4,
+      stiffness_insert_mode = 0.7,
+      trailing_stiffness_insert_mode = 0.7,
+      damping = 0.95,
+      damping_insert_mode = 0.95,
+      distance_stop_animating = 0.5,
+    }
+  },
+
+  { "sindrets/diffview.nvim" },
+  { "amitds1997/remote-nvim.nvim", },
+  { "ThePrimeagen/vim-be-good" },
 }
 
 -- ============== Setup lazy.nvim ==================
@@ -82,18 +113,24 @@ vim.cmd("colorscheme gruvbox")
 -- vim.opt.background = "dark"
 
 -- Telescope Setup
-require("telescope").setup()
--- require("telescope").setup({
---   defaults = {
---     vimgrep_arguments = {
---       'rg', '--nocolor', '--nogroup', '--column'
---     },
---   },
--- })
+require("telescope").setup({
+  -- defaults = {
+  --   vimgrep_arguments = {
+  --     'rg', '--nocolor', '--nogroup', '--column'
+  --   },
+  -- },
+  pickers = {
+    man_pages = {
+      man_cmd = { "man" }
+    }
+  },
+})
 
 
 -- Lualine
--- require("lualine").setup()
+require("lualine").setup({ 
+    -- options = { theme = 'gruvbox', } 
+})
 
 -- Comment.nvim
 require("Comment").setup()
@@ -101,6 +138,72 @@ require("Comment").setup()
 require("rose-pine").setup({
   styles = { transparency = true, },
 })
+
+require('gitsigns').setup{
+  on_attach = function(bufnr)
+    local gitsigns = require('gitsigns')
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({']c', bang = true})
+      else
+        gitsigns.nav_hunk('next')
+      end
+    end)
+
+    map('n', '[c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({'[c', bang = true})
+      else
+        gitsigns.nav_hunk('prev')
+      end
+    end)
+
+    -- Actions
+    map('n', '<leader>hs', gitsigns.stage_hunk)
+    map('n', '<leader>hr', gitsigns.reset_hunk)
+
+    map('v', '<leader>hs', function()
+      gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('v', '<leader>hr', function()
+      gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('n', '<leader>hp', gitsigns.preview_hunk)
+    map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+    map('n', '<leader>hb', function()
+      gitsigns.blame_line({ full = true })
+    end)
+
+    map('n', '<leader>hd', gitsigns.diffthis)
+
+    map('n', '<leader>hD', function()
+      gitsigns.diffthis('~')
+    end)
+
+    map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+    map('n', '<leader>hq', gitsigns.setqflist)
+
+    -- Toggles
+    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
+  end
+}
+
+require("remote-nvim").setup()
 
 -- =============== LSP + Autocompletion ===================
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -154,6 +257,22 @@ if vim.lsp.config then
     },
   })
   vim.lsp.enable('rust_analyzer')
+    
+  -- zls (Zig)
+  vim.lsp.config('zls', {
+    cmd = { "zls" },
+    capabilities = capabilities,
+    settings = {
+      zls = {
+        enable_inlay_hints = true,
+        inlay_hints_show_builtin = true,
+        include_at_in_builtins = false,
+        warn_style = true,
+      },
+    },
+  })
+  vim.lsp.enable('zls')
+
 else
   -- Fallback for versions < 0.11 if needed
   local lspconfig = require("lspconfig")
@@ -176,6 +295,7 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
   }
 })
 
@@ -219,6 +339,16 @@ opt.whichwrap:append "<>[]hl"
 vim.cmd("colorscheme gruvbox")
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 
+if vim.fn.has('win32') == 1 then
+  vim.opt.shell        = "C:\\Progra~1\\Git\\usr\\bin\\bash.exe"
+  vim.opt.shellcmdflag = "-l -c"          -- Git Bash uses -c, NOT /s /c
+  vim.opt.shellquote   = "'"
+  vim.opt.shellxquote  = ""          -- wrap command in quotes for Git Bash
+  vim.opt.shellpipe    = "2>&1 | tee"
+  vim.opt.shellredir   = ">%s 2>&1"
+  vim.opt.shellslash   = true   -- ← converts \ to / in Neovim-generated paths
+end
+
 -- ===================== Utils ===============================
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
@@ -230,8 +360,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-
+g.netrw_tmpfile_escape = ''
 -- ===================== Key Mappings =========================
 -- Keymaps (delegated to mappings.lua)
 require("mappings")
-
+require("snippets")
