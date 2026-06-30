@@ -39,13 +39,15 @@ local plugins = {
   },
 
   -- Status line
-  -- { "nvim-lualine/lualine.nvim" },
+  { "nvim-lualine/lualine.nvim" },
 
   -- Colorscheme
   { "ellisonleao/gruvbox.nvim" },
   { "joshdick/onedark.vim" },
   { "rose-pine/neovim" },
   { "gbprod/nord.nvim" },
+  { "dracula/vim" },
+  { "catppuccin/nvim" },
 
   -- Nerdcommenter alternative
   { "numToStr/Comment.nvim" },
@@ -62,6 +64,35 @@ local plugins = {
       }
     end,
   },
+  -- Git wrapper inside Nvim
+  { "tpope/vim-fugitive" },
+
+  -- Git Gutter
+  { "lewis6991/gitsigns.nvim" },
+
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      smear_between_buffers = true,
+      smear_between_neighbor_lines = true,
+      scroll_buffer_space = true,
+      legacy_computing_symbols_support = false,
+      smear_insert_mode = true,
+      stiffness = 0.8,
+      trailing_stiffness = 0.4,
+      stiffness_insert_mode = 0.7,
+      trailing_stiffness_insert_mode = 0.7,
+      damping = 0.95,
+      damping_insert_mode = 0.95,
+      distance_stop_animating = 0.5,
+    }
+  },
+
+  { "amitds1997/remote-nvim.nvim", },
+  { "ThePrimeagen/vim-be-good" },
+
+  { 'pechorin/any-jump.vim' },
+  { "ziglang/zig.vim"},
 }
 
 -- ============== Setup lazy.nvim ==================
@@ -82,18 +113,40 @@ vim.cmd("colorscheme gruvbox")
 -- vim.opt.background = "dark"
 
 -- Telescope Setup
-require("telescope").setup()
--- require("telescope").setup({
---   defaults = {
---     vimgrep_arguments = {
---       'rg', '--nocolor', '--nogroup', '--column'
---     },
---   },
--- })
+require("telescope").setup({
+  defaults = {
+    vimgrep_arguments = {
+      "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case",
+     -- exclude folders
+      "--glob", "!**/.git/*",
+      "--glob", "!**/install/*",
+      "--glob", "!**/out/*",
+      "--glob", "!**/build/*",
+      "--glob", "!**/bin/*",
+      "--glob", "!**/lib/*",
+      "--glob", "!**/*.o",
+      "--glob", "!**/*.a",
+    },
+    file_ignore_patterns = {
+      "install/",
+      "out/",
+      "build/",
+      "%.o",
+      "%.a",
+      "%.so",
+      "%.mbn",
+    },
+  },
+  pickers = {
+    man_pages = {
+      man_cmd = { "man" }
+    }
+  },
+})
 
 
 -- Lualine
--- require("lualine").setup()
+require("lualine").setup()
 
 -- Comment.nvim
 require("Comment").setup()
@@ -101,6 +154,75 @@ require("Comment").setup()
 require("rose-pine").setup({
   styles = { transparency = true, },
 })
+
+require('gitsigns').setup{
+  on_attach = function(bufnr)
+    local gitsigns = require('gitsigns')
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({']c', bang = true})
+      else
+        gitsigns.nav_hunk('next')
+      end
+    end)
+
+    map('n', '[c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({'[c', bang = true})
+      else
+        gitsigns.nav_hunk('prev')
+      end
+    end)
+
+    -- Actions
+    map('n', '<leader>hs', gitsigns.stage_hunk)
+    map('n', '<leader>hr', gitsigns.reset_hunk)
+
+    map('v', '<leader>hs', function()
+      gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('v', '<leader>hr', function()
+      gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('n', '<leader>hp', gitsigns.preview_hunk)
+    map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+    map('n', '<leader>hb', function()
+      gitsigns.blame_line({ full = true })
+    end)
+
+    map('n', '<leader>hd', gitsigns.diffthis)
+
+    map('n', '<leader>hD', function()
+      gitsigns.diffthis('~')
+    end)
+
+    map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+    map('n', '<leader>hq', gitsigns.setqflist)
+
+    -- Toggles
+    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
+  end
+}
+
+require("remote-nvim").setup()
+
+vim.g.any_jump_search_prefered_engine = 'rg'
+
 
 -- =============== LSP + Autocompletion ===================
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -132,7 +254,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 if vim.lsp.config then
   -- clangd
   vim.lsp.config('clangd', {
-    cmd = { "C:/Users/muhsha/AppData/Local/llvm-mingw-20260324-ucrt-aarch64/bin/clangd.exe" },
+    cmd = { "clangd" },
+    -- cmd = { "C:/Users/muhsha/AppData/Local/llvm-mingw-20260324-ucrt-aarch64/bin/clangd.exe" },
     capabilities = capabilities,
   })
   vim.lsp.enable('clangd')
@@ -154,6 +277,26 @@ if vim.lsp.config then
     },
   })
   vim.lsp.enable('rust_analyzer')
+    
+  -- zls (Zig)
+  vim.lsp.config('zls', {
+    cmd = { "zls" },
+    -- cmd = { "/usr2/maks/Downloads/zig-x86_64-linux-0.16.0/zls" },
+    capabilities = capabilities,
+    filetypes = { 'zig' },
+    root_markers = { 'build.zig' },
+    settings = {
+      zls = {
+        enable_inlay_hints = true,
+        inlay_hints_show_builtin = true,
+        include_at_in_builtins = false,
+        warn_style = true,
+        -- zig_exe_path = '/usr2/maks/Downloads/zig-x86_64-linux-0.16.0/zig',
+      },
+    },
+  })
+  vim.lsp.enable('zls')
+
 else
   -- Fallback for versions < 0.11 if needed
   local lspconfig = require("lspconfig")
@@ -163,7 +306,8 @@ else
     km.set("n", "gd", vim.lsp.buf.definition, opts)
     -- ... other mappings omitted for brevity in fallback ...
   end
-  lspconfig.clangd.setup({ cmd = { "C:/Users/muhsha/AppData/Local/llvm-mingw-20260324-ucrt-aarch64/bin/clangd.exe" }, capabilities = capabilities, on_attach = on_attach })
+  lspconfig.clangd.setup({ cmd = { "clangd" }, capabilities = capabilities, on_attach = on_attach })
+  -- lspconfig.clangd.setup({ cmd = { "C:/Users/muhsha/AppData/Local/llvm-mingw-20260324-ucrt-aarch64/bin/clangd.exe" }, capabilities = capabilities, on_attach = on_attach })
   lspconfig.cmake.setup({ capabilities = capabilities, on_attach = on_attach })
 end
 
@@ -219,6 +363,16 @@ opt.whichwrap:append "<>[]hl"
 vim.cmd("colorscheme gruvbox")
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 
+if vim.fn.has('win32') == 1 then
+  vim.opt.shell        = "C:\\Progra~1\\Git\\usr\\bin\\bash.exe"
+  vim.opt.shellcmdflag = "-l -c"          -- Git Bash uses -c, NOT /s /c
+  vim.opt.shellquote   = "'"
+  vim.opt.shellxquote  = ""          -- wrap command in quotes for Git Bash
+  vim.opt.shellpipe    = "2>&1 | tee"
+  vim.opt.shellredir   = ">%s 2>&1"
+  vim.opt.shellslash   = true   -- ← converts \ to / in Neovim-generated paths
+end
+
 -- ===================== Utils ===============================
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
@@ -230,8 +384,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-
+g.netrw_tmpfile_escape = ''
 -- ===================== Key Mappings =========================
 -- Keymaps (delegated to mappings.lua)
 require("mappings")
-

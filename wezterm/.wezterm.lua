@@ -7,7 +7,7 @@ local home = wezterm.home_dir
 local hostname = wezterm.hostname()
 
 -- Per-machine wallpaper base directories
-local wp_dir, wp4_dir, wp_misc_dir
+local wp_dir, wp4_dir, wp_misc_dir, wp_vs_dir
 if hostname == "TODO_ABDUL_HOSTNAME" then  -- main machine (abdul)
   wp_dir      = home .. "/Downloads/wallpapers3"
   wp4_dir     = home .. "/Downloads/Wallpapers4"
@@ -16,6 +16,7 @@ else  -- muhsha machine
   wp_dir      = home .. "/Downloads/Previous/Icons-and-Wallpapaers/wallpapers3"
   wp4_dir     = home .. "/Downloads/Previous/Wallpapers4"
   wp_misc_dir = home .. "/Downloads/Previous/Wallpapers"
+  wp_vs_dir   = home .. "/Downloads/Wallpapers5"
 end
 
 -- Font settings
@@ -140,6 +141,8 @@ config.keys = {
 
   -- QEMU Ctrl+a x
   { key = 'x', mods = 'LEADER', action = act.SendKey { key = 'a', mods = 'CTRL' } },
+  -- Key v
+  { key = 'v', mods = 'LEADER', action = act.SendKey { key = 'v', mods = 'ALT' } },
 
   -- Wrap current command with run(): Ctrl+A (BOL) → "r " → Enter
   {
@@ -164,7 +167,9 @@ wezterm.on("cycle-theme", function(window, pane)
   if current_theme > #themes then
     current_theme = 1
   end
-  window:set_config_overrides({ color_scheme = themes[current_theme], })
+  local overrides = window:get_config_overrides() or {}
+  overrides.color_scheme = themes[current_theme]
+  window:set_config_overrides(overrides)
 end)
 
 wezterm.on("show-theme", function(window, pane)
@@ -263,6 +268,16 @@ local rrzz6m = {
     vertical_offset = "-40cell",
 }
 
+local tifa_jack = {
+    source = { File = wp_dir .. "/wallhaven-x6z15d_2304x1536.png" },
+    hsb = {brightness=0.08},
+}
+
+local tifa_jack2 = {
+    source = { File = wp_dir .. "/wallhaven-z8e2vg_2800x1200.png" },
+    hsb = {brightness=0.08},
+}
+
 
 local artstation = {
     source = { File = wp_dir .. "/artstation.jpg" },
@@ -274,10 +289,34 @@ local cp1bmwginjrd1= {
     hsb = {brightness=0.04},
 }
 
+local samurai_vstheme = {
+    source = { File = wp_vs_dir .. "/samurai-on-the-edge-1080p.gif" },
+    hsb = {brightness=0.07},
+    horizontal_align = "Center",
+}
+
+local twob_gravechill = {
+    source = { File = wp_vs_dir .. "/2b-gravechill-1080p.gif" },
+    hsb = {brightness=0.07},
+    horizontal_align = "Center",
+}
+
+local stars_sky = {
+    source = { File = wp_vs_dir .. "/stars-sky-constellation-1080p.gif" },
+    hsb = {brightness=0.07},
+    horizontal_align = "Center",
+}
+
 local nutcracker = {
     source = { File = wp_dir .. "/RDT_20240626_1615582191250765174800272.jpg" },
     hsb = {brightness=0.04},
     vertical_offset = "-4cell",
+}
+
+local earth_rotation = {
+    source = { File = wp_vs_dir .. "/earth-rotation-1080p.gif" },
+    hsb = {brightness=0.07},
+    horizontal_align = "Center",
 }
 
 local backgrounds = {
@@ -288,6 +327,9 @@ local backgrounds = {
   city_lights,
   katana,
   bike,
+  samurai_vstheme,
+  twob_gravechill,
+  earth_rotation,
 }
 
 local sfw_sensitive = {
@@ -297,6 +339,8 @@ local sfw_sensitive = {
   desktopHut_3960,
   tifa,
   rrzz6m,
+  tifa_jack,
+  tifa_jack2,
   cp1bmwginjrd1,
 }
 
@@ -305,9 +349,9 @@ local current_bg = 1
 
 wezterm.on("toggle-next-background", function(window, pane)
   current_bg = (current_bg % #backgrounds) + 1
-  window:set_config_overrides({
-    background = {backgrounds[current_bg]}
-  })
+  local overrides = window:get_config_overrides() or {}
+  overrides.background = {backgrounds[current_bg]}
+  window:set_config_overrides(overrides)
 end)
 
 wezterm.on("show-sensitive-bg", function(window, pane)
@@ -315,10 +359,9 @@ wezterm.on("show-sensitive-bg", function(window, pane)
     wezterm.action.InputSelector {
       action = wezterm.action_callback(function(win, _, id, label)
         if label == "Yes" then
-          win:set_config_overrides({
-            background = {sfw_sensitive[current_bg]}
-            -- background = {sfw_sensitive[math.random(#sfw_sensitive)]}
-          })
+          local overrides = win:get_config_overrides() or {}
+          overrides.background = {sfw_sensitive[current_bg]}
+          win:set_config_overrides(overrides)
           current_bg = (current_bg % #sfw_sensitive) + 1
         end
       end),
