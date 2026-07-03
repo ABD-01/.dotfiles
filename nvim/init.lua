@@ -26,7 +26,7 @@ local plugins = {
       vim.g.NERDTreeIgnore = {
         '^node_modules$',
         '\\~$',
-        '.o$',
+        '\\.o$',
         'bower_components',
         'node_modules',
         '__pycache__',
@@ -93,6 +93,8 @@ local plugins = {
 
   { 'pechorin/any-jump.vim' },
   { "ziglang/zig.vim"},
+
+  { "nvim-treesitter/nvim-treesitter" },
 }
 
 -- ============== Setup lazy.nvim ==================
