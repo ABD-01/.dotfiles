@@ -22,6 +22,9 @@ local mappings = {
     ["<C-k>"] = { "<C-w>k", "Move to above split" },
     ["<C-l>"] = { "<C-w>l", "Move to right split" },
 
+    ["<M-j>"] = { "<C-d>zz", "Scroll down half page" },
+    ["<M-k>"] = { "<C-u>zz", "Scroll up half page" },
+
 
     -- File/buffer navigation
     ["<C-f>"] = { ":Telescope find_files<CR>", "Fuzzy file finder" },
