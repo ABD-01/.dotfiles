@@ -18,10 +18,9 @@ local mappings = {
     ["<leader>fp"] = { [[:let @* = expand("%:p")<CR>]], "Copy full path" },
 
     ["<C-h>"] = { "<C-w>h", "Move to left split" },
+    ["<C-j>"] = { "<C-w>j", "Move to below split" },
+    ["<C-k>"] = { "<C-w>k", "Move to above split" },
     ["<C-l>"] = { "<C-w>l", "Move to right split" },
-
-    ["<C-j>"] = { "<C-d>zz", "Scroll down half page" },
-    ["<C-k>"] = { "<C-u>zz", "Scroll up half page" },
 
 
     -- File/buffer navigation
@@ -29,7 +28,6 @@ local mappings = {
     ["<C-b>"] = { ":Telescope buffers<CR>", "List buffers" },
     ["<C-p>"] = { ":Telescope oldfiles<CR>", "Previously Used Files" },
     ["<leader><C-r>"] = { ":Telescope resume<CR>", "Resume last Telescope picker" },
-    ["<leader>j"] = { ":AnyJump<CR>", "AnyJump" },
     ["<leader>v"] = { ":Telescope live_grep<CR>", "Live grep search" },
 
     -- Git
