@@ -299,6 +299,21 @@ if vim.lsp.config then
   })
   vim.lsp.enable('zls')
 
+  -- basedpyright (Python)
+  vim.lsp.config('basedpyright', {
+    cmd = { "basedpyright-langserver", "--stdio" },
+    capabilities = capabilities,
+    filetypes = { 'python' },
+    settings = {
+      basedpyright = {
+        analysis = {
+          typeCheckingMode = "standard",
+        },
+      },
+    },
+  })
+  vim.lsp.enable('basedpyright')
+
 else
   -- Fallback for versions < 0.11 if needed
   local lspconfig = require("lspconfig")
