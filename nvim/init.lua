@@ -9,7 +9,12 @@ local plugins = {
   { "L3MON4D3/LuaSnip" },
 
   -- Telescope for fuzzy finding
-  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  { "nvim-telescope/telescope.nvim", 
+    dependencies = { 
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
+    } 
+  },
 
   -- Nerd tree
   {
@@ -145,6 +150,7 @@ require("telescope").setup({
     }
   },
 })
+require("telescope").load_extension("live_grep_args")
 
 
 -- Lualine

@@ -30,8 +30,10 @@ local mappings = {
     ["<C-f>"] = { ":Telescope find_files<CR>", "Fuzzy file finder" },
     ["<C-b>"] = { ":Telescope buffers<CR>", "List buffers" },
     ["<C-p>"] = { ":Telescope oldfiles<CR>", "Previously Used Files" },
+    ["<leader>j"] = { ":AnyJump<CR>", "AnyJump" },
     ["<leader><C-r>"] = { ":Telescope resume<CR>", "Resume last Telescope picker" },
-    ["<leader>v"] = { ":Telescope live_grep<CR>", "Live grep search" },
+    -- ["<leader>v"] = { ":Telescope live_grep<CR>", "Live grep search" },
+    ["<leader>v"] = { ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", "Live Grep with Args" },
 
     -- Git
     ["<leader>gs"] = { ":Telescope git_status<CR>", "Git status" },
